@@ -15,8 +15,14 @@ const theme = extendTheme({
             variants: {
                 'main': {
                     bg: "primary",
-                    color: "txt-primary"
+                    color: "txt-primary",
+                    _hover: {
+                        bg: "#F5742E"
+                    }
                 }
+            },
+            defaultProps: {
+                variant: 'main'
             }
         },
         Heading: {
