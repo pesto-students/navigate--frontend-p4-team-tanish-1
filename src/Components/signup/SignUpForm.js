@@ -11,18 +11,18 @@ export default function SignUpForm(){
                 <Input placeholder="Enter your name" type='text' />
                 <FormLabel mt='1vh'>Email</FormLabel>
                 <Input placeholder="Enter your email" type='email' />
-                <Flex justify="space-between">
-                    <Box w="47%">
+                <Flex justify="space-between" direction={["column", "column", "row"]}>
+                    <Box w={["100%","100%","47%"]}>
                         <FormLabel mt='1vh'>Password</FormLabel>
                         <Input placeholder="Enter your password" type='password' />
                     </Box>
-                    <Box w="47%">
+                    <Box w={["100%","100%","47%"]}>
                         <FormLabel mt='1vh'>Confirm Password</FormLabel>
                         <Input placeholder="Confirm your password" type='password' />
                     </Box>
                 </Flex>
                 <Flex mt="2vh">
-                <FormLabel>Register as</FormLabel>
+                    <FormLabel>Register as</FormLabel>
                     <RadioGroup>
                         <Stack direction='row'>
                             <Radio colorScheme="orange" value='student'>Student</Radio>

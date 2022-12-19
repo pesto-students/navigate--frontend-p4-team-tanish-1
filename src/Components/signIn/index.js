@@ -9,7 +9,7 @@ export default function SignInPage(){
             <Navbar />
             <Flex h="100%">
                 <SignInForm />
-                <Box w="50vw" bg="dark">
+                <Box w="50vw" display={["none", "none", "flex"]}>
                     <Image src={signinImg} objectFit='cover'/>
                 </Box>
             </Flex>

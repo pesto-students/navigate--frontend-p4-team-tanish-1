@@ -9,7 +9,7 @@ export default function SignUpPage(){
             <Navbar />
             <Flex h="100%">
                 <SignUpForm />
-                <Box w="50vw" bg="dark">
+                <Box w="50vw" display={["none", "none", "flex"]}>
                     <Image src={signupImg} objectFit='cover'/>
                 </Box>
             </Flex>

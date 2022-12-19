@@ -1,9 +1,9 @@
-import SignUpPage from "./Components/signup/index.js";
+import SignInPage from "./Components/signIn/index.js";
 
 function App() {
   return (
     <div className="App">
-      <SignUpPage/>
+      <SignInPage/>
     </div>
   );
 }
