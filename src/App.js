@@ -1,9 +1,9 @@
-import Navbar from "./Components/Navbar.js";
+import SignUpPage from "./Components/signup/index.js";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
+      <SignUpPage/>
     </div>
   );
 }

@@ -13,22 +13,25 @@ import {
     DrawerBody,
     DrawerOverlay,
     Show,
+    useColorMode
 } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import logoSQ from "../Assets/logos/logo-SQ.png";
 
 export default function Navbar() {
+    const { colorMode, toggleColorMode } = useColorMode()
     return (
         <Box>
             <Show breakpoint="(min-width: 576px)"><DesktopNavbar /></Show>
             <Show breakpoint="(max-width: 575px)"><MobileNavbar /></Show>
+            {/*<Button onClick={toggleColorMode}>Toggle {colorMode === 'light' ? 'Dark': 'Light'}</Button>*/}
         </Box>
     );
 }
 
 function DesktopNavbar() {
     return (
-        <Box bg="dark" color="txt-primary" w="100vw" px="2vw" py="1vh">
+        <Box bg="dark" color="txt-primary" w="100%" px="2vw" py="1vh">
             <Flex justify="space-between" align="center">
                 <Image src={logoSQ}></Image>
                 <List>
@@ -53,7 +56,7 @@ function DesktopNavbar() {
 function MobileNavbar() {
     const { isOpen, onClose, onOpen } = useDisclosure();
     return (
-        <Box bg="dark" color="txt-primary" w="100vw" px="1vw" py="0.5vh">
+        <Box bg="dark" color="txt-primary" w="100%" px="1vw" py="0.5vh">
             <Flex justify="space-between" align="center">
                 <Image h={["7vh", "8vh", "9vh"]} src={logoSQ}></Image>
                 <HamburgerIcon w="10" onClick={onOpen} />
