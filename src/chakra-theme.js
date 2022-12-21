@@ -1,4 +1,4 @@
-import {extendTheme} from '@chakra-ui/react';
+import {extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
     initialColorMode: 'light',
@@ -11,7 +11,8 @@ const theme = extendTheme({
         "dark-hover": "#565656",
         "txt-primary": "#FFFFFF",
         "btn-grey": "#EEEEEE",
-        "btn-grey-hover": "#CCCCCC"
+        "btn-grey-hover": "#CCCCCC",
+        "active-background": "#262626"
     },
     fonts: {
         Heading: `'Nunito'`
@@ -29,7 +30,7 @@ const theme = extendTheme({
                 'auth': {
                     bg: "dark",
                     color: "primary",
-                    w:"100%",
+                    w:"80%",
                     mt: "2vh",
                     fontSize: "1.12em",
                     _hover: {
@@ -37,7 +38,7 @@ const theme = extendTheme({
                     }
                 },
                 'google': {
-                    w:"100%",
+                    w:"80%",
                     mt: "2vh",
                     fontSize: "1.12em",
                     _hover: {
@@ -57,6 +58,14 @@ const theme = extendTheme({
                 'main': {
                     mt: "5vh",
                     mb: "1vh"
+                }
+            }
+        },
+        ListItem: {
+            variants:{
+                'sidebar': {
+                    w: "100%",
+                    color: "#FFFFFF"
                 }
             }
         }

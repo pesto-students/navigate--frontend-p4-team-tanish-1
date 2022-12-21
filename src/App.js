@@ -1,10 +1,10 @@
-import SignInPage from "./Components/signIn/index.js";
+// import SignInPage from "./Components/signIn/index.js";
+
+import Router from "../src/Router/index.js";
 
 function App() {
   return (
-    <div className="App">
-      <SignInPage/>
-    </div>
+    <Router />
   );
 }
 
