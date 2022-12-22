@@ -12,7 +12,8 @@ const theme = extendTheme({
         "txt-primary": "#FFFFFF",
         "btn-grey": "#EEEEEE",
         "btn-grey-hover": "#CCCCCC",
-        "active-background": "#262626"
+        "active-background": "#262626",
+        "default-bg": "#ECF4F4"
     },
     fonts: {
         Heading: `'Nunito'`
@@ -58,6 +59,11 @@ const theme = extendTheme({
                 'main': {
                     mt: "5vh",
                     mb: "1vh"
+                },
+                'profile-name':{
+                    fontSize: 'xl',
+                    my: "2vh",
+                    color: 'primary'
                 }
             }
         },
@@ -67,6 +73,27 @@ const theme = extendTheme({
                     w: "100%",
                     color: "#FFFFFF"
                 }
+            }
+        },
+        Input: {
+            variants: {
+                'form': {
+                    'bg': 'white'
+                }
+            }
+        },
+        FormLabel: {
+            variants: {
+                spaced: {
+                    'mt': '1vh'
+                },
+                profile: {
+                    'my': '2vh',
+                    fontSize: '18px'
+                }
+            },
+            defaultProps: {
+                variant: 'spaced'
             }
         }
     }

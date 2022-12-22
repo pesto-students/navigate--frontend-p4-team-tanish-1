@@ -76,14 +76,14 @@ export default function SignUpForm() {
                 </Heading>
                 <Text>Enter your details to create your account</Text>
                 <FormControl pt="5vh" w="80%">
-                    <FormLabel mt="1vh">Name</FormLabel>
+                    <FormLabel>Name</FormLabel>
                     <Input
                         id="name"
                         placeholder="Name"
                         type="text"
                         {...register("name")}
                     />
-                    <FormLabel mt="1vh">Email</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <Input
                         id="email"
                         placeholder="Email"
@@ -95,7 +95,7 @@ export default function SignUpForm() {
                         direction={["column", "column", "row"]}
                     >
                         <Box w={["100%", "100%", "47%"]}>
-                            <FormLabel mt="1vh">Password</FormLabel>
+                            <FormLabel>Password</FormLabel>
                             <Input
                                 id="pass"
                                 placeholder="Password"
@@ -104,7 +104,7 @@ export default function SignUpForm() {
                             />
                         </Box>
                         <Box w={["100%", "100%", "47%"]}>
-                            <FormLabel mt="1vh">Confirm Password</FormLabel>
+                            <FormLabel>Confirm Password</FormLabel>
                             <Input
                                 id="cpass"
                                 placeholder="Confirm password"
@@ -113,7 +113,7 @@ export default function SignUpForm() {
                             />
                         </Box>
                     </Flex>
-                    <Flex mt="2vh">
+                    <Flex mt="2vh" align={"center"}>
                         <FormLabel>Register as</FormLabel>
                         <RadioGroup name="type" {...register("type")}>
                             <Stack direction="row">
