@@ -1,9 +1,10 @@
 import {extendTheme } from '@chakra-ui/react';
+import {  MultiSelectTheme } from 'chakra-multiselect'
 
 const theme = extendTheme({
-    initialColorMode: 'light',
+    initialColorMode: "light",
     useSystemColorMode: false,
-    colors:{
+    colors: {
         primary: "#F98E54",
         secondary: "#093D65",
         dark: "#161616",
@@ -13,90 +14,112 @@ const theme = extendTheme({
         "btn-grey": "#EEEEEE",
         "btn-grey-hover": "#CCCCCC",
         "active-background": "#262626",
-        "default-bg": "#ECF4F4"
+        "default-bg": "#ECF4F4",
     },
     fonts: {
-        Heading: `'Nunito'`
+        Heading: `'Nunito'`,
     },
     components: {
+        MultiSelect: MultiSelectTheme,
         Button: {
             variants: {
-                'main': {
+                main: {
                     bg: "primary",
                     color: "txt-primary",
                     _hover: {
-                        bg: "primary-hover"
-                    }
+                        bg: "primary-hover",
+                    },
                 },
-                'auth': {
+                auth: {
                     bg: "dark",
                     color: "primary",
-                    w:"80%",
+                    w: "80%",
                     mt: "2vh",
                     fontSize: "1.12em",
                     _hover: {
-                        bg: "dark-hover"
-                    }
+                        bg: "dark-hover",
+                    },
                 },
-                'google': {
-                    w:"80%",
+                google: {
+                    w: "80%",
                     mt: "2vh",
                     fontSize: "1.12em",
                     _hover: {
-                        "bg": "btn-grey"
+                        bg: "btn-grey",
                     },
                     bg: "white",
                     color: "dark",
-                    boxShadow: 'md',
-                }
+                    boxShadow: "md",
+                },
+                edit: {
+                    bg: "none",
+                    color: "secondary",
+                    pl: "0",
+                    mt: "1vw",
+                    mr: "2em",
+                    _hover: {
+                        bg: "dark",
+                        color: "txt-primary"
+                    }
+                },
             },
             defaultProps: {
-                variant: 'main'
-            }
+                variant: "main",
+            },
         },
         Heading: {
             variants: {
-                'main': {
+                main: {
                     mt: "5vh",
-                    mb: "1vh"
+                    mb: "1vh",
                 },
-                'profile-name':{
-                    fontSize: 'xl',
+                "profile-name": {
+                    fontSize: "xl",
                     my: "2vh",
-                    color: 'primary'
+                    color: "primary",
+                },
+            },
+        },
+        Icon: {
+            variants: {
+                profile:{
+                    color:"primary",
+                    mr:"0.5vw",
+                    ml:"0.5vw",
+                    fontSize:"1.2em"
                 }
             }
         },
         ListItem: {
-            variants:{
-                'sidebar': {
+            variants: {
+                sidebar: {
                     w: "100%",
-                    color: "#FFFFFF"
-                }
-            }
+                    color: "#FFFFFF",
+                },
+            },
         },
         Input: {
             variants: {
-                'form': {
-                    'bg': 'white'
-                }
-            }
+                form: {
+                    bg: "white",
+                },
+            },
         },
         FormLabel: {
             variants: {
                 spaced: {
-                    'mt': '1vh'
+                    mt: "1vh",
                 },
                 profile: {
-                    'my': '2vh',
-                    fontSize: '18px'
-                }
+                    my: "2vh",
+                    fontSize: "18px",
+                },
             },
             defaultProps: {
-                variant: 'spaced'
-            }
-        }
-    }
-})
+                variant: "spaced",
+            },
+        },
+    },
+});
 
 export default theme;

@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import app from "../../firebase-config.js";
+import app from "../../../firebase-config.js";
 import {
     Button,
     Box,
@@ -13,7 +13,7 @@ import {
     IconButton,
     useDisclosure
 } from "@chakra-ui/react";
-import logoSQ from "../../Assets/logos/logo-SQ.png";
+import logoSQ from "../../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 function userSignOut() {

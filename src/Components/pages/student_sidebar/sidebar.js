@@ -1,5 +1,5 @@
 import { useDisclosure, Box, Image, List, Link, Flex, Icon, Drawer, DrawerContent } from "@chakra-ui/react";
-import logo from "../../Assets/logos/logo.png";
+import logo from "../../../Assets/logos/logo.png";
 import { FiHome, FiMenu, FiSearch, FiSettings } from "react-icons/fi/index.js";
 import Navbar from "./Navbar.js";
 

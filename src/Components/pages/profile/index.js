@@ -1,6 +1,6 @@
 import { Flex, Box } from "@chakra-ui/layout";
-import Navbar from "../Navbar.js";
-import Sidebar from "../sidebar.js";
+import Navbar from "../student_sidebar/Navbar.js";
+import Sidebar from "../student_sidebar/sidebar.js";
 import Hero from "./hero.js";
 import InputForm from "./inputDetails.js";
 
