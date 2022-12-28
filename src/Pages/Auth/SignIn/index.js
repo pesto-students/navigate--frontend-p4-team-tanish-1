@@ -1,7 +1,7 @@
-import SignInForm from "./SignInForm.js";
-import Navbar from "../Navbar.js";
+import SignInForm from "../../../Components/Auth/signIn/SignInForm.js";
+import Navbar from "../../../Components/Navbar.js";
 import {Box, Flex, Image} from "@chakra-ui/react";
-import signinImg from "../../Assets/signin-bg.jpg"
+import signinImg from "../../../Assets/signin-bg.jpg"
 
 export default function SignInPage(){
     return (

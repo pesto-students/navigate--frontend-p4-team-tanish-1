@@ -1,7 +1,6 @@
-import { Box, Flex, Input, Image, Heading } from "@chakra-ui/react";
-import heroBg from "../../../Assets/hero-bg-crop.jpg";
-import profile from "../../../Assets/profile.jpg";
-import InputForm from "./inputDetails.js";
+import { Box, Flex, Image, Heading } from "@chakra-ui/react";
+import heroBg from "../../Assets/hero-bg-crop.jpg";
+import profile from "../../Assets/profile.jpg";
 
 export default function Hero(){
     return(

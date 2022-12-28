@@ -78,6 +78,12 @@ const theme = extendTheme({
                     my: "2vh",
                     color: "primary",
                 },
+                view: {
+                    color: "secondary",
+                    my: "2vh",
+                    fontSize: "18px",
+                    fontWeight: "500"
+                }
             },
         },
         Icon: {

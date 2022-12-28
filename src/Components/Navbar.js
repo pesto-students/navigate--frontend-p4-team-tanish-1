@@ -47,7 +47,7 @@ function DesktopNavbar() {
                         </ListItem>
                     </Flex>
                 </List>
-                <Button>Get Started</Button>
+                <Link as="Button" href="/signin">Get Started</Link>
             </Flex>
         </Box>
     );

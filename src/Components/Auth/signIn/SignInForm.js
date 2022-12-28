@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../../firebase-config.js";
+import app from "../../../firebase-config.js";
 import {
     Text,
     Box,
@@ -10,29 +10,34 @@ import {
     Button,
     Input,
     Link,
-    FormErrorMessage
+    // FormErrorMessage,
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc/index.js";
+import axios from "axios";
 
 const auth = getAuth(app);
 
-const loginUser = (values) => {
+const loginUser = async (values) => {
     const { email, password } = values;
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            console.log("user Signed in");
+    try {
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+        const user = userCredential.user;
+        console.log("user Signed in");
+        console.log(user);
 
-            // USE TOKEN RETURNED
-
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("In error");
-            console.log(errorCode);
-        });
+        const response = await axios.get("http://localhost:4000/student/get");
+        console.log(response);
+        // USE TOKEN RETURNED
+    } catch (error) {
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        console.log("In error");
+        console.log(error);
+    }
 };
 
 export default function SignInForm() {
@@ -82,7 +87,7 @@ export default function SignInForm() {
             </form>
             <Text fontWeight={600} mt="4vh">
                 Don't have account?{" "}
-                <Link href="signup" color="primary">
+                <Link href="/signup" color="primary">
                     Sign Up
                 </Link>
             </Text>

@@ -1,7 +1,6 @@
-import { useDisclosure, Box, Image, List, Link, Flex, Icon, Drawer, DrawerContent } from "@chakra-ui/react";
-import logo from "../../../Assets/logos/logo.png";
-import { FiHome, FiMenu, FiSearch, FiSettings } from "react-icons/fi/index.js";
-import Navbar from "./Navbar.js";
+import { Box, Image, List, Link, Flex, Icon, } from "@chakra-ui/react";
+import logo from "../../Assets/logos/logo.png";
+import { FiHome, FiSearch, FiSettings } from "react-icons/fi/index.js";
 
 const NavItem = ({ icon, children, isActive }) => {
     return (
@@ -38,7 +37,7 @@ const NavItem = ({ icon, children, isActive }) => {
 };
 
 export default function Sidebar(props) {
-    const { isActive } = props;
+    // const { isActive } = props;
     return (
         <Flex w="20%" direction="row">
             <Box

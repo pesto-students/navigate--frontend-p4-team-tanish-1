@@ -1,7 +1,7 @@
-import SignUpForm from "./SignUpForm.js";
-import Navbar from "../Navbar.js";
+import SignUpForm from "../../../Components/Auth/signUp/SignUpForm.js";
+import Navbar from "../../../Components/Navbar.js";
 import {Box, Flex, Image} from "@chakra-ui/react";
-import signupImg from "../../Assets/signup-bg.jpg"
+import signupImg from "../../../Assets/signup-bg.jpg"
 
 export default function SignUpPage(){
     return (

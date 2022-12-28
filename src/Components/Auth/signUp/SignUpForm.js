@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import app from "../../firebase-config.js";
+import app from "../../../firebase-config.js";
 import {
     Flex,
     Text,
@@ -16,6 +16,7 @@ import {
     Stack,
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc/index.js";
+import axios from "axios";
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -27,18 +28,18 @@ function signUpWithGoogle(){
     signInWithPopup(auth, provider)
         .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        const user = result.user;
+        // const token = credential.accessToken;
+        // const user = result.user;
         console.log(credential);
         }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // const email = error.customData.email;
+        // const credential = GoogleAuthProvider.credentialFromError(error);
     });
 }
 
-const createUser = (values) => {
+const createUser = async (values) => {
     console.log(values);
     const { email, password, cpassword, type, name } = values;
     console.log(email, password);
@@ -46,19 +47,40 @@ const createUser = (values) => {
         console.log("Password does not match")
         return
     }
-
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    try{
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password)
         const user = userCredential.user;
         console.log("user created")
         console.log(user)
-    })
-    .catch((error) => {
+        if(type === "student"){
+            const data = await axios.post("http://localhost:4000/student/create",{
+                name: name,
+                email: email
+            },{
+                headers: { 
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+            console.log(data);
+        }
+        else if(type === "alumni"){
+            const data = await axios.post("http://localhost:4000/alumni/create",{
+                name: name,
+                email: email
+            },{
+                headers: { 
+                    "Content-Type": "application/x-www-form-urlencoded"
+                }
+            })
+            console.log(data);
+        }
+    }
+    catch(error) {
         const errorCode = error.code;
-        const errorMessage = error.message;
+        // const errorMessage = error.message;
         console.log("In error")
         console.log(errorCode)
-    });
+    }
 };
 
 export default function SignUpForm() {

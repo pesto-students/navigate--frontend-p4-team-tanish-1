@@ -1,7 +1,6 @@
 import { getAuth, signOut } from "firebase/auth";
-import app from "../../../firebase-config.js";
+import app from "../../firebase-config.js";
 import {
-    Button,
     Box,
     Image,
     Flex,
@@ -11,9 +10,9 @@ import {
     MenuButton,
     HStack,
     IconButton,
-    useDisclosure
+    // useDisclosure
 } from "@chakra-ui/react";
-import logoSQ from "../../../Assets/logos/logo-SQ.png";
+import logoSQ from "../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 function userSignOut() {
@@ -34,7 +33,7 @@ function userSignOut() {
 //     icon={<FiMenu />}
 // />
 export default function Navbar() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    // const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box w="100%" h="8vh" color="primary" bg="dark">
             <Flex align="center" h="100%" gap="4px" mx="6px" justify="space-between">
