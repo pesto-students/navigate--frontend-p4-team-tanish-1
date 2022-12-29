@@ -14,10 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc/index.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const auth = getAuth(app);
 
-const loginUser = async (values) => {
+const loginUser = async (values, navigate) => {
     const { email, password } = values;
     try {
         const userCredential = await signInWithEmailAndPassword(
@@ -31,12 +32,13 @@ const loginUser = async (values) => {
 
         const response = await axios.get("http://localhost:4000/student/get");
         console.log(response);
+        navigate('/student/dashboard')
         // USE TOKEN RETURNED
     } catch (error) {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
         console.log("In error");
-        console.log(error);
+        console.log(errorCode, errorMessage);
     }
 };
 
@@ -46,10 +48,11 @@ export default function SignInForm() {
         register,
         formState: { errors, isSubmitting },
     } = useForm();
+    const navigate = useNavigate();
 
     return (
         <Box w={["100vw", "100vw", "50vw"]} h="100%" align="center">
-            <form onSubmit={handleSubmit(loginUser)}>
+            <form onSubmit={handleSubmit(loginUser, navigate)}>
                 <Heading variant="main" color="primary">
                     Welcome Back
                 </Heading>

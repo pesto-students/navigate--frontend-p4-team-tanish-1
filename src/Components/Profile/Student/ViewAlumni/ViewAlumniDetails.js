@@ -7,6 +7,8 @@ import {
     CardBody,
     Heading,
 } from "@chakra-ui/react";
+import PricingAvailability from "../../Alumni/ViewProfile/pricingAvailability.js";
+import { NavLink } from "react-router-dom";
 
 export default function ViewDetailForm() {
     return (
@@ -119,6 +121,8 @@ export default function ViewDetailForm() {
                     </Card>
                 </Flex>
             </Flex>
+            <PricingAvailability />
+            <Button as={NavLink} to="/booking" mt="2vh" fontWeight="normal">Book Session</Button>
         </Box>
     );
 }

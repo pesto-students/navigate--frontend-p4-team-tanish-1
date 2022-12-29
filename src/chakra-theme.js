@@ -57,6 +57,7 @@ const theme = extendTheme({
                     pl: "0",
                     mt: "1vw",
                     mr: "2em",
+                    fontSize: ["0.75em", "0.8em", "0.9em"],
                     _hover: {
                         bg: "dark",
                         color: "txt-primary"
@@ -74,7 +75,7 @@ const theme = extendTheme({
                     mb: "1vh",
                 },
                 "profile-name": {
-                    fontSize: "xl",
+                    fontSize: "l",
                     my: "2vh",
                     color: "primary",
                 },

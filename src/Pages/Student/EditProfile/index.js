@@ -1,8 +1,8 @@
 import { Flex, Box } from "@chakra-ui/layout";
-import Navbar from "../../Components/student_sidebar/Navbar.js";
-import Sidebar from "../../Components/student_sidebar/sidebar.js";
-import Hero from "../../Components/Profile/hero.js";
-import InputForm from "../../Components/Profile/Student/EditProfile/inputDetails.js";
+import Navbar from "../../../Components/student_sidebar/Navbar.js";
+import Sidebar from "../../../Components/student_sidebar/sidebar.js";
+import Hero from "../../../Components/Profile/hero.js";
+import InputForm from "../../../Components/Profile/Student/EditProfile/inputDetails.js";
 
 // <Flex direction="column">
 //     <Hero/>

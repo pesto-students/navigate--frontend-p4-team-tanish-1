@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import logoSQ from "../Assets/logos/logo-SQ.png";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
     const { colorMode, toggleColorMode } = useColorMode()
@@ -47,7 +48,7 @@ function DesktopNavbar() {
                         </ListItem>
                     </Flex>
                 </List>
-                <Link as="Button" href="/signin">Get Started</Link>
+                <Button as={NavLink} to="/signin">Get Started</Button>
             </Flex>
         </Box>
     );
