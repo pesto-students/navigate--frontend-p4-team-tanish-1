@@ -119,7 +119,7 @@ const theme = extendTheme({
                 },
                 profile: {
                     my: "2vh",
-                    fontSize: "18px",
+                    fontSize: "16px",
                 },
             },
             defaultProps: {

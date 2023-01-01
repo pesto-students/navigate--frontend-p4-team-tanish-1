@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from "../../../firebase-config.js";
 import {
     Flex,
@@ -14,76 +14,64 @@ import {
     RadioGroup,
     Radio,
     Stack,
+    useToast
 } from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc/index.js";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { axiosPostRequest } from "../../../apiHelper.js";
 
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-provider.addScope('profile');
 /* Need to Handle and display error messages of firebase and form validations properly
    Store Access token and other details on client side */
 
-function signUpWithGoogle(){
-    signInWithPopup(auth, provider)
-        .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // const user = result.user;
-        console.log(credential);
-        }).catch((error) => {
-        // const errorCode = error.code;
-        // const errorMessage = error.message;
-        // const email = error.customData.email;
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-    });
-}
-
-const createUser = async (values) => {
-    console.log(values);
+async function CreateUser(values, navigate, toast) {
+    console.log(values.email);
+    let message = "Something went wrong"
+    let status = "error"
+    let title = ""
     const { email, password, cpassword, type, name } = values;
-    console.log(email, password);
-    if(password !== cpassword){
-        console.log("Password does not match")
-        return
-    }
-    try{
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-        const user = userCredential.user;
-        console.log("user created")
-        console.log(user)
-        if(type === "student"){
-            const data = await axios.post("http://localhost:4000/student/create",{
+    if(password === cpassword){
+
+        try{
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            const user = userCredential.user;
+            const body = {
                 name: name,
                 email: email
-            },{
-                headers: { 
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
-            })
-            console.log(data);
+            }
+            const data = await axiosPostRequest(`/${type}/create`, body)
+            message = "SignUp Successfull"
+            status = "success"
+            navigate(`/${type}/profile`)
         }
-        else if(type === "alumni"){
-            const data = await axios.post("http://localhost:4000/alumni/create",{
-                name: name,
-                email: email
-            },{
-                headers: { 
-                    "Content-Type": "application/x-www-form-urlencoded"
-                }
-            })
-            console.log(data);
+        catch(error) {
+            status = "error"
+            message = "Something went wrong"
+            const errCode = error.code
+            if(errCode === 'auth/email-already-in-use'){
+                message = "User already registered please login to continue"
+            }
         }
     }
-    catch(error) {
-        const errorCode = error.code;
-        // const errorMessage = error.message;
-        console.log("In error")
-        console.log(errorCode)
+    else{
+        message = "password does not match"
+        status = "error"
     }
+    return (
+        toast({
+                title : title,
+                description: message,
+                variant: "top-accent",
+                status: status,
+                duration: 5000,
+                isClosable: true,
+            }
+        )
+    )
 };
 
 export default function SignUpForm() {
+    const toast = useToast()
+    const navigate = useNavigate();
     const {
         handleSubmit,
         register,
@@ -92,7 +80,7 @@ export default function SignUpForm() {
 
     return (
         <Box w={["100vw", "100vw", "50vw"]} h="100%" align="center">
-            <form onSubmit={handleSubmit(createUser)}>
+            <form onSubmit={handleSubmit((data) => CreateUser(data, navigate, toast))}>
                 <Heading variant="main" color="primary">
                     Create your account
                 </Heading>
@@ -102,14 +90,14 @@ export default function SignUpForm() {
                     <Input
                         id="name"
                         placeholder="Name"
-                        type="text"
+                        type="text" required
                         {...register("name")}
                     />
                     <FormLabel>Email</FormLabel>
                     <Input
                         id="email"
                         placeholder="Email"
-                        type="email"
+                        type="email" required
                         {...register("email")}
                     />
                     <Flex
@@ -121,7 +109,7 @@ export default function SignUpForm() {
                             <Input
                                 id="pass"
                                 placeholder="Password"
-                                type="password"
+                                type="password" required
                                 {...register("password")}
                             />
                         </Box>
@@ -130,19 +118,19 @@ export default function SignUpForm() {
                             <Input
                                 id="cpass"
                                 placeholder="Confirm password"
-                                type="password"
+                                type="password" required
                                 {...register("cpassword")}
                             />
                         </Box>
                     </Flex>
                     <Flex mt="2vh" align={"center"}>
                         <FormLabel>Register as</FormLabel>
-                        <RadioGroup name="type" {...register("type")}>
+                        <RadioGroup id="role" defaultValue="student" name="type" {...register("type")}>
                             <Stack direction="row">
-                                <Radio colorScheme="orange" value="student">
+                                <Radio colorScheme="orange" name="student" value="student">
                                     Student
                                 </Radio>
-                                <Radio colorScheme="orange" value="alumni">
+                                <Radio colorScheme="orange" name="alumni" value="alumni">
                                     Alumni
                                 </Radio>
                             </Stack>
@@ -150,9 +138,6 @@ export default function SignUpForm() {
                     </Flex>
                 </FormControl>
                 <Button type="submit" variant="auth" isLoading={isSubmitting}>Sign up</Button>
-                <Button variant="google" leftIcon={<FcGoogle />} onClick={signUpWithGoogle}>
-                    Sign up with google
-                </Button>
                 <Text fontWeight={600} mt="4vh">
                     Already have account?{" "}
                     <Link href="signin" color="primary">

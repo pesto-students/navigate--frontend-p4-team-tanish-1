@@ -30,6 +30,20 @@ const InterestMultiSelect = (prop) => {
     />
     )
 }
+
+function CustomInput({register, id, placeholder, type = "text"}){
+    return (
+        <Input
+            id={id}
+            w={['90%','90%','75%']}
+            placeholder={placeholder}
+            type={type}
+            variant='form'
+            {...register(id)}
+        />
+    )
+}
+
 async function updateUserDetails(values) {
     console.log(values);
     await setTimeout(()=> {
@@ -50,14 +64,7 @@ export default function InputForm() {
                 <FormControl p="2vw" w="100%" mb="5em">
                     <Flex justify="space-between" direction={["column", "column", "row"]}>
                         <FormLabel variant="profile" color="secondary">Headline</FormLabel>
-                        <Input
-                            id="headline"
-                            w={['90%','90%','75%']}
-                            placeholder="Tech Enthusiast"
-                            type="text"
-                            variant='form'
-                            {...register("headline")}
-                        />
+                        <CustomInput id="headline" placeholder="your headline" register={register}/>
                     </Flex>
                     <Flex justify="space-between" direction={["column", "column", "row"]}>
                         <FormLabel variant="profile" color="secondary">Your Bio</FormLabel>
@@ -76,25 +83,11 @@ export default function InputForm() {
                         <Box w={["100%","100%","75%"]}>
                             <Flex justify="space-between" direction={["column", "column", "row"]}>
                                 <FormLabel variant="profile">Organization</FormLabel>
-                                <Input
-                                    id="organization"
-                                    w={['90%','90%','75%']}
-                                    placeholder="Organization name"
-                                    type="text"
-                                    variant='form'
-                                    {...register("workOrg")}
-                                /> 
+                                <CustomInput id="organization" placeholder="Organization name" register={register}/> 
                             </Flex>
                             <Flex justify="space-between" direction={["column", "column", "row"]}>
                                 <FormLabel variant="profile">Role</FormLabel>
-                                <Input
-                                    id="role"
-                                    w={['90%','90%','75%']}
-                                    placeholder="Your Role"
-                                    type="text"
-                                    variant='form'
-                                    {...register("workRole")}
-                                /> 
+                                <CustomInput id="role" placeholder="Your Role" register={register}/>
                             </Flex>
                             <Flex justify="space-between" direction={["column", "column", "row"]}>
                                 <FormLabel variant="profile">Work Summary</FormLabel>
@@ -115,25 +108,11 @@ export default function InputForm() {
                         <Box w={["100%","100%","75%"]}>
                             <Flex justify="space-between" direction={["column", "column", "row"]}>
                                 <FormLabel variant="profile">Institution</FormLabel>
-                                <Input
-                                    id="institution"
-                                    w={['90%','90%','75%']}
-                                    placeholder="Institution name"
-                                    type="text"
-                                    variant='form'
-                                    {...register("eduInstitute")}
-                                /> 
+                                <CustomInput id="institution" placeholder="Institution name" register={register}/>
                             </Flex>
                             <Flex justify="space-between" direction={["column", "column", "row"]}>
                                 <FormLabel variant="profile">Course</FormLabel>
-                                <Input
-                                    id="course"
-                                    w={['90%','90%','75%']}
-                                    placeholder="Course name"
-                                    type="text"
-                                    variant='form'
-                                    {...register("eduDegre")}
-                                /> 
+                                <CustomInput id="course" placeholder="Course name" register={register}/> 
                             </Flex>
                         </Box>
                     </Flex>

@@ -14,16 +14,18 @@ import {
 } from "@chakra-ui/react";
 import logoSQ from "../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
-function userSignOut() {
+async function UserSignOut(navigate) {
     const auth = getAuth(app);
-    signOut(auth)
-        .then(() => {
-            console.log("Logout successful");
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    try{
+        await signOut(auth)
+        console.log("Logout successful");
+        navigate("/")
+    }
+    catch(error) {
+        console.log(error);
+    }
 }
 // <IconButton
 //     display={{ base: 'flex', md: 'none' }}
@@ -33,6 +35,7 @@ function userSignOut() {
 //     icon={<FiMenu />}
 // />
 export default function Navbar() {
+    const navigate = useNavigate()
     // const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box w="100%" h="8vh" color="primary" bg="dark">
@@ -56,7 +59,7 @@ export default function Navbar() {
                         }
                     ></MenuButton>
                     <MenuList bg="white">
-                        <MenuItem onClick={userSignOut}>Sign out</MenuItem>
+                        <MenuItem onClick={() => UserSignOut(navigate)}>Sign out</MenuItem>
                     </MenuList>
                 </Menu>
             </Flex>

@@ -3,18 +3,18 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { axiosGetRequest } from '../../../../apiHelper.js';
 
-function MyCard() {
+function AlumniMyCard() {
   const [user, setUser] = useState(null)
   useEffect(() => {
     async function getUser(){
-      const response = await axiosGetRequest("/student/get/")
+      const response = await axiosGetRequest("/alumni/get/")
       console.log(response);
     }
     getUser()
   }, [])
   return (
-    <Heading>Dashboard</Heading>
+    <Heading>Alumni Dashboard</Heading>
   )
 }
 
-export default MyCard
+export default AlumniMyCard
