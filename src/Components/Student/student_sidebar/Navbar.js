@@ -1,5 +1,5 @@
 import { getAuth, signOut } from "firebase/auth";
-import app from "../../firebase-config.js";
+import app from "../../../firebase-config.js";
 import {
     Box,
     Image,
@@ -12,7 +12,7 @@ import {
     IconButton,
     // useDisclosure
 } from "@chakra-ui/react";
-import logoSQ from "../../Assets/logos/logo-SQ.png";
+import logoSQ from "../../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,6 @@ async function UserSignOut(navigate) {
     const auth = getAuth(app);
     try{
         await signOut(auth)
-        console.log("Logout successful");
         navigate("/")
     }
     catch(error) {

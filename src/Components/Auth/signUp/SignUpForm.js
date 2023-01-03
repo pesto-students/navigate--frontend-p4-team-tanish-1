@@ -24,7 +24,6 @@ const auth = getAuth(app);
    Store Access token and other details on client side */
 
 async function CreateUser(values, navigate, toast) {
-    console.log(values.email);
     let message = "Something went wrong"
     let status = "error"
     let title = ""
@@ -44,11 +43,16 @@ async function CreateUser(values, navigate, toast) {
             navigate(`/${type}/profile`)
         }
         catch(error) {
+            console.log(error);
             status = "error"
             message = "Something went wrong"
             const errCode = error.code
             if(errCode === 'auth/email-already-in-use'){
                 message = "User already registered please login to continue"
+            }
+            else if(errCode === "auth/invalid-email"){
+                title = "Invalid email"
+                message = "Please enter valid email"
             }
         }
     }
@@ -125,12 +129,12 @@ export default function SignUpForm() {
                     </Flex>
                     <Flex mt="2vh" align={"center"}>
                         <FormLabel>Register as</FormLabel>
-                        <RadioGroup id="role" defaultValue="student" name="type" {...register("type")}>
+                        <RadioGroup id="role" defaultValue="student" name="type">
                             <Stack direction="row">
-                                <Radio colorScheme="orange" name="student" value="student">
+                                <Radio colorScheme="orange" value="student" {...register("type")}>
                                     Student
                                 </Radio>
-                                <Radio colorScheme="orange" name="alumni" value="alumni">
+                                <Radio colorScheme="orange" value="alumni" {...register("type")}>
                                     Alumni
                                 </Radio>
                             </Stack>

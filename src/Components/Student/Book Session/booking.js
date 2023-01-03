@@ -7,17 +7,31 @@ import {
     Input,
     Textarea,
     Button,
-    Text
+    Text,
+    useToast
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-async function bookSession(values) {
-    console.log(values);
+async function bookSession(values, navigate, toast) {
     await setTimeout(()=> {
         console.log(3000)
     }, 3000)
+    navigate('/student/session-confirm');
+    return (
+        toast({ 
+            title: "Booking successful",
+            description: "Your session with James Doe is scheduled",
+            status: "success",
+            variant: "top-accent",
+            duration: 5000,
+            isClosable: true,
+        })
+    )
 }
 
 export default function Booking() {
+    const toast = useToast();
+    const navigate = useNavigate();
     const {
         handleSubmit,
         register,
@@ -26,7 +40,7 @@ export default function Booking() {
     
     return (
         <Box pt="16vh">
-            <form onSubmit={handleSubmit(bookSession)}>
+            <form onSubmit={handleSubmit((values) => bookSession(values, navigate, toast))}>
                 <FormControl p="2vw" w="100%" mb="5em">
                     <Flex justify="space-between" direction={["column", "column", "row"]}>
                         <FormLabel variant="profile" color="secondary">Topic of Discussion</FormLabel>

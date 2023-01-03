@@ -1,5 +1,5 @@
 import { Box, Image, List, Link, Flex, Icon } from "@chakra-ui/react";
-import logo from "../../Assets/logos/logo.png";
+import logo from "../../../Assets/logos/logo.png";
 import { FiHome, FiSearch, FiSettings } from "react-icons/fi/index.js";
 import { NavLink } from "react-router-dom";
 

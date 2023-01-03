@@ -1,5 +1,4 @@
 import { extendTheme } from '@chakra-ui/react';
-import {  MultiSelectTheme } from 'chakra-multiselect'
 
 const theme = extendTheme({
     initialColorMode: "light",
@@ -20,7 +19,6 @@ const theme = extendTheme({
         Heading: `'Nunito'`,
     },
     components: {
-        MultiSelect: MultiSelectTheme,
         Button: {
             variants: {
                 main: {
@@ -84,6 +82,10 @@ const theme = extendTheme({
                     my: "2vh",
                     fontSize: "18px",
                     fontWeight: "500"
+                },
+                schedule: {
+                    fontSize: "18px",
+                    fontWeight: "500"
                 }
             },
         },
@@ -94,6 +96,9 @@ const theme = extendTheme({
                     mr:"0.5vw",
                     ml:"0.5vw",
                     fontSize:"1.2em"
+                },
+                schedule: {
+                    fontSize: "1.2em",
                 }
             }
         },

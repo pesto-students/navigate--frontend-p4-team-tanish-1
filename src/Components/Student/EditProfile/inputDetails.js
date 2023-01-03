@@ -8,10 +8,12 @@ import {
     Textarea,
     Icon,
     Button,
-    Text
+    Text, useToast, Select
 } from "@chakra-ui/react";
 import { FaSave, FaTimesCircle } from 'react-icons/fa/index.js';
 import { MultiSelect, useMultiSelect } from 'chakra-multiselect'
+import { NavLink, useNavigate } from "react-router-dom";
+import {axiosGetRequest, axiosPostRequest} from "../../../apiHelper.js";
 
 const InterestMultiSelect = (prop) => {
     console.log(prop);
@@ -27,8 +29,7 @@ const InterestMultiSelect = (prop) => {
         label='Choose or create items'
         onChange={onChange}
         create
-    />
-    )
+    />)
 }
 
 function CustomInput({register, id, placeholder, type = "text"}){
@@ -44,14 +45,25 @@ function CustomInput({register, id, placeholder, type = "text"}){
     )
 }
 
-async function updateUserDetails(values) {
+async function updateStudent(values, navigate, toast) {
     console.log(values);
-    await setTimeout(()=> {
-        console.log(3000)
-    }, 3000)
+    const response = await axiosPostRequest('/student/123', values);
+    console.log(response);
+    navigate('/student/dashboard');
+    return (
+        toast({ 
+            title: "Your profile updated successfully",
+            status: "success",
+            variant: "top-accent",
+            duration: 5000,
+            isClosable: true,
+        })
+    )
 }
 
 export default function InputForm() {
+    const navigate = useNavigate();
+    const toast = useToast();
     const {
         handleSubmit,
         register,
@@ -60,7 +72,7 @@ export default function InputForm() {
     
     return (
         <Box pt="16vh">
-            <form onSubmit={handleSubmit(updateUserDetails)}>
+            <form onSubmit={handleSubmit((values) => updateStudent(values, navigate, toast))}>
                 <FormControl p="2vw" w="100%" mb="5em">
                     <Flex justify="space-between" direction={["column", "column", "row"]}>
                         <FormLabel variant="profile" color="secondary">Headline</FormLabel>
@@ -116,67 +128,19 @@ export default function InputForm() {
                             </Flex>
                         </Box>
                     </Flex>
-                    <Flex justify="space-between" direction={["column", "column", "row"]}>
-                        <FormLabel variant="profile" color="secondary">Availability</FormLabel>
-                        <Box w={["100%","100%","75%"]}>
-                            <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
-                                <FormLabel variant="profile">Weekdays</FormLabel>
-                                <Input
-                                    id="weekdaysFrom"
-                                    w={['45%','45%','25%']}
-                                    type="time" textAlign="center"
-                                    variant='form'
-                                    {...register("weekdaysFrom")}
-                                /> to 
-                                <Input
-                                    id="weekdaysTo"
-                                    w={['45%','45%','25%']}
-                                    type="time" textAlign="center"
-                                    variant='form'
-                                    {...register("weekdaysTo")}
-                                /> 
-                            </Flex>
-                            <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
-                                <FormLabel variant="profile">Weekends</FormLabel>
-                                <Input
-                                    id="weekendsFrom"
-                                    w={['45%','45%','25%']}
-                                    type="time" textAlign="center"
-                                    variant='form'
-                                    {...register("weekendFrom")}
-                                /> to 
-                                <Input
-                                    id="weekdaysTo"
-                                    w={['45%','45%','25%']}
-                                    type="time" textAlign="center"
-                                    variant='form'
-                                    {...register("weekendTo")}
-                                /> 
-                            </Flex>
-                        </Box>
-                    </Flex>
                     <Flex w={["90%", "90%", "75%"]} justify="space-between" align="baseline" mb="6px" direction={["column", "column", "row"]}>
                         <FormLabel minWidth="30%" variant="profile" color="secondary">Area of Interest</FormLabel>
-                        <InterestMultiSelect />
-                    </Flex>
-                    <Flex align="center" justify="space-between" direction={["column", "column", "row"]}>
-                        <FormLabel variant="profile" color="secondary">Pricing</FormLabel>
-                        <Box w={["100%","100%","75%"]}>
-                        <Flex justify="flex-start" align="center">
-                        <Input
-                            id="headline"
-                            w={['75%','75%','10%']}
-                            placeholder="150"
-                            type="number" textAlign="center"
-                            variant='form'
-                            {...register("pricing")}
-                        />
-                        <Text variant="profile" fontWeight="regular" ml="0.5vw">Rs per hour</Text>
-                        </Flex>
-                        </Box>
+                        <Select placeholder='Select option' size="s" {...register("interest")}>
+                            <option value='ai'>Artificial intelligence (AI)</option>
+                            <option value='option2'>Game Developer</option>
+                            <option value='option3'>Computer Network</option>
+                            <option value='option3'>Graphics Design</option>
+                            <option value='option3'>Information Security</option>
+                            <option value='option3'>Data Science</option>
+                        </Select>
                     </Flex>
                         <Button variant="edit" type="submit" isLoading={isSubmitting}><Icon as={FaSave} variant="profile"/>Save</Button>
-                        <Button variant="edit"><Icon as={FaTimesCircle} variant="profile"/>Cancel</Button>
+                        <Button variant="edit" as={NavLink} to="/student/dashboard"><Icon as={FaTimesCircle} variant="profile"/>Cancel</Button>
                 </FormControl>
             </form>
         </Box>

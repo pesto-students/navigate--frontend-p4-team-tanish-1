@@ -19,7 +19,6 @@ import { axiosPostRequest } from "../../../apiHelper.js";
 const auth = getAuth(app);
 
 async function loginUser (values, navigate, toast) {
-    console.log(values);
     const { email, password, type } = values;
     let title, message, status;
     try {
@@ -29,12 +28,10 @@ async function loginUser (values, navigate, toast) {
             password
         );
         const user = userCredential.user;
-        console.log(user);
         const userID = user.uid
         const userEmail = user.email
 
         const response = await axiosPostRequest(`/${type}/find/`, {email: userEmail});
-        console.log(response);
         status = "success";
         message = "Login successful";
         navigate(`/${type}/dashboard`)
@@ -139,12 +136,12 @@ export default function SignInForm() {
                     />
                     <Flex mt="2vh" align={"center"}>
                         <FormLabel>Register as</FormLabel>
-                        <RadioGroup id="role" defaultValue="student" name="type" {...register("type")}>
+                        <RadioGroup id="role" defaultValue="student" name="type">
                             <Stack direction="row">
-                                <Radio colorScheme="orange" value="student">
+                                <Radio colorScheme="orange" value="student" {...register("type")}>
                                     Student
                                 </Radio>
-                                <Radio colorScheme="orange" value="alumni">
+                                <Radio colorScheme="orange" value="alumni" {...register("type")}>
                                     Alumni
                                 </Radio>
                             </Stack>

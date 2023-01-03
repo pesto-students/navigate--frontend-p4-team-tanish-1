@@ -11,6 +11,7 @@ import StudentViewAlumniProfile from "./Pages/Student/ViewAlumni/index.js";
 
 import AlumniDashboard from "./Pages/Alumni/Dashboard/index.js";
 import AlumniViewProfile from "./Pages/Alumni/ViewProfile/index.js";
+import ConfirmPage from "./Pages/Student/Book Session/confirmation.js";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route exact path="dashboard" element={<StudentDashboard />} />
             <Route exact path="profile" element={<ViewProfile />}/>
             <Route exact path="edit-profile" element={<EditProfile />}/>
+            <Route exact path="session-confirm" element={<ConfirmPage />}/>
         </Route>
         <Route path="*" element={<h1>404 Page not found</h1>}/>
         
