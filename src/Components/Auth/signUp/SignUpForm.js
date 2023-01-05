@@ -18,12 +18,14 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
+import { useDispatch } from "react-redux";
+import { USER_LOGIN } from "../../../redux/userReducer.js";
 
 const auth = getAuth(app);
 /* Need to Handle and display error messages of firebase and form validations properly
    Store Access token and other details on client side */
 
-async function CreateUser(values, navigate, toast) {
+async function CreateUser(values, navigate, toast, dispatch) {
     let message = "Something went wrong"
     let status = "error"
     let title = ""
@@ -37,7 +39,8 @@ async function CreateUser(values, navigate, toast) {
                 name: name,
                 email: email
             }
-            const data = await axiosPostRequest(`/${type}/create`, body)
+            const response = await axiosPostRequest(`/${type}/create`, body)
+            dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"]}))
             message = "SignUp Successfull"
             status = "success"
             navigate(`/${type}/profile`)
@@ -53,6 +56,10 @@ async function CreateUser(values, navigate, toast) {
             else if(errCode === "auth/invalid-email"){
                 title = "Invalid email"
                 message = "Please enter valid email"
+            }
+            else if(errCode === "auth/weak-password"){
+                title = "Weak password"
+                message = "Create strong password with atleast 8 characters"
             }
         }
     }
@@ -74,7 +81,8 @@ async function CreateUser(values, navigate, toast) {
 };
 
 export default function SignUpForm() {
-    const toast = useToast()
+    const dispatch = useDispatch();
+    const toast = useToast();
     const navigate = useNavigate();
     const {
         handleSubmit,
@@ -84,7 +92,7 @@ export default function SignUpForm() {
 
     return (
         <Box w={["100vw", "100vw", "50vw"]} h="100%" align="center">
-            <form onSubmit={handleSubmit((data) => CreateUser(data, navigate, toast))}>
+            <form onSubmit={handleSubmit((data) => CreateUser(data, navigate, toast, dispatch))}>
                 <Heading variant="main" color="primary">
                     Create your account
                 </Heading>

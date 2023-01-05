@@ -15,10 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
+import { USER_LOGIN } from "../../../redux/userReducer.js";
+import { useDispatch } from "react-redux";
 
 const auth = getAuth(app);
 
-async function loginUser (values, navigate, toast) {
+async function loginUser (values, navigate, toast, dispatch) {
     const { email, password, type } = values;
     let title, message, status;
     try {
@@ -32,6 +34,7 @@ async function loginUser (values, navigate, toast) {
         const userEmail = user.email
 
         const response = await axiosPostRequest(`/${type}/find/`, {email: userEmail});
+        dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"]}))
         status = "success";
         message = "Login successful";
         navigate(`/${type}/dashboard`)
@@ -97,6 +100,7 @@ async function ResetPassword(email, toast){
 }
 
 export default function SignInForm() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const toast = useToast();
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -114,7 +118,7 @@ export default function SignInForm() {
     
     return (
         <Box w={["100vw", "100vw", "50vw"]} h="100%" align="center">
-            <form onSubmit={handleSubmit((data) => loginUser(data, navigate, toast))} method="POST">
+            <form onSubmit={handleSubmit((data) => loginUser(data, navigate, toast, dispatch))} method="POST">
                 <Heading variant="main" color="primary">
                     Welcome Back
                 </Heading>

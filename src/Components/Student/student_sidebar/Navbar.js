@@ -15,11 +15,14 @@ import {
 import logoSQ from "../../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { USER_LOGOUT } from "../../../redux/userReducer.js";
 
-async function UserSignOut(navigate) {
+async function UserSignOut(navigate, dispatch) {
     const auth = getAuth(app);
     try{
         await signOut(auth)
+        dispatch(USER_LOGOUT());
         navigate("/")
     }
     catch(error) {
@@ -34,7 +37,8 @@ async function UserSignOut(navigate) {
 //     icon={<FiMenu />}
 // />
 export default function Navbar() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     // const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Box w="100%" h="8vh" color="primary" bg="dark">
@@ -58,7 +62,7 @@ export default function Navbar() {
                         }
                     ></MenuButton>
                     <MenuList bg="white">
-                        <MenuItem onClick={() => UserSignOut(navigate)}>Sign out</MenuItem>
+                        <MenuItem onClick={() => UserSignOut(navigate, dispatch)}>Sign out</MenuItem>
                     </MenuList>
                 </Menu>
             </Flex>
