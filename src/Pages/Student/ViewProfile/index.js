@@ -1,5 +1,5 @@
-import Navbar from "../../../Components/Student/student_sidebar/Navbar.js"
-import Sidebar from "../../../Components/Student/student_sidebar/sidebar.js"
+import Navbar from "../../../Components/Student/Sidebar/Navbar.js"
+import Sidebar from "../../../Components/Student/Sidebar/sidebar.js"
 import ViewDetail from "../../../Components/Student/ViewProfile/viewDetails.js"
 import { Box, Flex, Icon, Button } from "@chakra-ui/react";
 import { EditIcon } from '@chakra-ui/icons'

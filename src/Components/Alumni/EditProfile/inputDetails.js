@@ -8,6 +8,7 @@ import {
     Textarea,
     Icon,
     Button,
+    Text,
     useToast, 
     Select
 } from "@chakra-ui/react";
@@ -46,11 +47,11 @@ function CustomInput({register, id, placeholder, type = "text"}){
     )
 }
 
-async function updateStudent(values, navigate, toast) {
+async function updateAlumni(values, navigate, toast) {
     console.log(values);
-    const response = await axiosPostRequest('/student/123', values);
+    const response = await axiosPostRequest('/alumni/123', values);
     console.log(response);
-    navigate('/student/dashboard');
+    navigate('/alumni/dashboard');
     return (
         toast({ 
             title: "Your profile updated successfully",
@@ -62,7 +63,7 @@ async function updateStudent(values, navigate, toast) {
     )
 }
 
-export default function InputForm() {
+export default function AlumniInputForm() {
     const navigate = useNavigate();
     const toast = useToast();
     const {
@@ -73,7 +74,7 @@ export default function InputForm() {
     
     return (
         <Box pt="16vh">
-            <form onSubmit={handleSubmit((values) => updateStudent(values, navigate, toast))}>
+            <form onSubmit={handleSubmit((values) => updateAlumni(values, navigate, toast))}>
                 <FormControl p="2vw" w="100%" mb="5em">
                     <Flex justify="space-between" direction={["column", "column", "row"]}>
                         <FormLabel variant="profile" color="secondary">Headline</FormLabel>
@@ -140,8 +141,63 @@ export default function InputForm() {
                             <option value='option3'>Data Science</option>
                         </Select>
                     </Flex>
+                    <Flex justify="space-between" direction={["column", "column", "row"]}>
+                        <FormLabel variant="profile" color="secondary">Availability</FormLabel>
+                        <Box w={["100%","100%","75%"]}>
+                            <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
+                                <FormLabel variant="profile">Weekdays</FormLabel>
+                                <Input
+                                    id="weekdaysFrom"
+                                    w={['50%','50%','30%']}
+                                    type="time" textAlign="center"
+                                    variant='form'
+                                    {...register("weekdaysFrom")}
+                                /> to 
+                                <Input
+                                    id="weekdaysTo"
+                                    w={['50%','50%','30%']}
+                                    type="time" textAlign="center"
+                                    variant='form'
+                                    {...register("weekdaysTo")}
+                                /> 
+                            </Flex>
+                            <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
+                                <FormLabel variant="profile">Weekends</FormLabel>
+                                <Input
+                                    id="weekendsFrom"
+                                    w={['50%','50%','30%']}
+                                    type="time" textAlign="center"
+                                    variant='form'
+                                    {...register("weekendFrom")}
+                                /> to 
+                                <Input
+                                    id="weekdaysTo"
+                                    w={['50%','50%','30%']}
+                                    type="time" textAlign="center"
+                                    variant='form'
+                                    {...register("weekendTo")}
+                                /> 
+                            </Flex>
+                        </Box>
+                    </Flex>
+                    <Flex align="center" justify="space-between" direction={["column", "column", "row"]}>
+                        <FormLabel variant="profile" color="secondary">Pricing</FormLabel>
+                        <Box w={["100%","100%","75%"]}>
+                        <Flex justify="flex-start" align="center">
+                        <Input
+                            id="headline"
+                            w={"30%"}
+                            placeholder="150"
+                            type="number" textAlign="center"
+                            variant='form'
+                            {...register("pricing")}
+                        />
+                        <Text variant="profile" fontWeight="regular" ml="0.5vw">Rs per hour</Text>
+                        </Flex>
+                        </Box>
+                    </Flex>
                         <Button variant="edit" type="submit" isLoading={isSubmitting}><Icon as={FaSave} variant="profile"/>Save</Button>
-                        <Button variant="edit" as={NavLink} to="/student/dashboard"><Icon as={FaTimesCircle} variant="profile"/>Cancel</Button>
+                        <Button variant="edit" as={NavLink} to="/alumni/dashboard"><Icon as={FaTimesCircle} variant="profile"/>Cancel</Button>
                 </FormControl>
             </form>
         </Box>

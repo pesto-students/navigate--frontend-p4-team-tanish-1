@@ -1,17 +1,20 @@
 import { Flex, Box } from "@chakra-ui/layout";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
-import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
-import BookSession from "../../../Components/Student/Book Session/booking.js"
+import Sidebar from "../../../Components/Alumni/Sidebar/sidebar.js";
 import Hero from "../../../Components/hero.js";
+import InputForm from "../../../Components/Alumni/EditProfile/inputDetails.js";
 
-export default function Booking(){
+// <Flex direction="column">
+//     <Hero/>
+// </Flex>
+export default function AlumniEditProfile(){
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
                 <Hero />
-                <BookSession />
+                <InputForm />
             </Box>
         </Flex>
     )
