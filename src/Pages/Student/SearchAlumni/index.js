@@ -1,7 +1,7 @@
 import { Flex, Box } from "@chakra-ui/layout";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
-import AlumniCard from "../../../Components/Student/SearchAlumni/AlumniCard.js";
+import AlumniCard from "../../../Components/Dashboard/alumni-card.js";
 
 export default function SearchAlumni(){
     return (

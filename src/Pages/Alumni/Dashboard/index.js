@@ -1,7 +1,8 @@
 import { Flex, Box } from "@chakra-ui/layout";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Alumni/Sidebar/sidebar.js";
-import AlumniMyCard from "../../../Components/Alumni/Dashboard/test.js";
+import MyCard from "../../../Components/Dashboard/profile-card.js";
+import UpcomingSession from "../../../Components/Dashboard/upcoming-session.js";
 
 export default function Dashboard(){
     return (
@@ -9,7 +10,12 @@ export default function Dashboard(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <AlumniMyCard />
+                <Box m="2vw" align="center">
+                    <Flex direction="row" justify="space-between" mb="7vh">
+                        <MyCard />
+                        <UpcomingSession />
+                    </Flex>
+                </Box>
             </Box>
         </Flex>
     )

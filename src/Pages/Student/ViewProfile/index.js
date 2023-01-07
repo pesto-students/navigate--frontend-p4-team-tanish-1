@@ -1,6 +1,6 @@
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js"
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js"
-import ViewDetail from "../../../Components/Student/ViewProfile/viewDetails.js"
+import ViewDetail from "../../../Components/ViewProfile/viewDetails.js"
 import { Box, Flex, Icon, Button } from "@chakra-ui/react";
 import { EditIcon } from '@chakra-ui/icons'
 import Hero from "../../../Components/hero.js"
