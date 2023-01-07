@@ -1,7 +1,5 @@
 import {
     Flex,
-    Box,
-    Button,
     Text,
     Card,
     CardBody,

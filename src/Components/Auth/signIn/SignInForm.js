@@ -30,11 +30,11 @@ async function loginUser (values, navigate, toast, dispatch) {
             password
         );
         const user = userCredential.user;
-        const userID = user.uid
-        const userEmail = user.email
+        const userID = user.uid;
+        const userEmail = user.email;
 
         const response = await axiosPostRequest(`/${type}/find/`, {email: userEmail});
-        dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"]}))
+        dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"], "firebaseID": userID}))
         status = "success";
         message = "Login successful";
         navigate(`/${type}/dashboard`)
