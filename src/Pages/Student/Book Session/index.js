@@ -3,12 +3,13 @@ import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
 import BookSession from "../../../Components/Book Session/booking.js"
 import Hero from "../../../Components/hero.js";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 
 async function bookSession(values, navigate, toast) {
     await setTimeout(()=> {
+        console.log(values);
         console.log(3000)
     }, 3000)
     navigate('/student/session-confirm');
@@ -32,7 +33,7 @@ export default function Booking(){
         register,
         formState: { errors, isSubmitting },
     } = useForm();
-    
+    console.log(errors);
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>

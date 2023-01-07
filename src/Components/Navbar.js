@@ -20,7 +20,7 @@ import logoSQ from "../Assets/logos/logo-SQ.png";
 import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
-    const { colorMode, toggleColorMode } = useColorMode()
+    // const { colorMode, toggleColorMode } = useColorMode()
     return (
         <Box>
             <Show breakpoint="(min-width: 576px)"><DesktopNavbar /></Show>

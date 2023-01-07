@@ -34,7 +34,7 @@ async function CreateUser(values, navigate, toast, dispatch) {
 
         try{
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-            const user = userCredential.user;
+            // const user = userCredential.user;
             const body = {
                 name: name,
                 email: email

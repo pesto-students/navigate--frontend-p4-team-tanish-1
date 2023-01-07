@@ -1,27 +1,10 @@
 import {
     Flex,
-    Box,
-    Button,
     Text,
     Card,
     CardBody,
     Heading,
 } from "@chakra-ui/react";
-
-function CardView({ children }) {
-    return (
-        <Card
-            w={["90%", "90%", "75%"]}
-            mb="1vw"
-            bg="white"
-            borderRadius="0.3em"
-        >
-            <CardBody>
-                <Text>{children}</Text>
-            </CardBody>
-        </Card>
-    );
-}
 
 export default function AlumniPricingAvailability() {
     return (
