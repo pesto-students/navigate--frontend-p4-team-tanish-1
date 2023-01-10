@@ -2,7 +2,7 @@ import { Flex, Text, Card, CardBody, Image, Stack } from "@chakra-ui/react";
 import React from "react";
 import cover from "../../Assets/profile.jpg";
 
-function MyCard() {
+function MyCard({fullName, headline}) {
     return (
         <Card
             bg="white"
@@ -30,10 +30,10 @@ function MyCard() {
                             Student
                         </Text>
                         <Text color="primary" fontWeight="600">
-                            Gretchen Curtis
+                            {fullName}
                         </Text>
                         <Text color="grey">
-                            Passionate about Software and Tech
+                            {headline}
                         </Text>
                     </Stack>
                 </Flex>

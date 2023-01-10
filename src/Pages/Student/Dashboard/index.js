@@ -6,8 +6,11 @@ import MyCard from "../../../Components/Dashboard/profile-card.js";
 import AlumniCard from "../../../Components/Dashboard/alumni-card.js";
 import UpcomingSession from "../../../Components/Dashboard/upcoming-session.js";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function Dashboard() {
+    const {fullName, headline} = useSelector((state) => state.user);
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar />
@@ -15,7 +18,7 @@ export default function Dashboard() {
                 <Navbar />
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
-                        <MyCard />
+                        <MyCard fullName={fullName} headline={headline}/>
                         <UpcomingSession />
                     </Flex>
                     <Heading fontSize="1.4em" color="secondary" mb="4vh">

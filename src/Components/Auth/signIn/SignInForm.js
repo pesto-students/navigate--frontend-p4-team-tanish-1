@@ -31,21 +31,33 @@ async function loginUser (values, navigate, toast, dispatch) {
         );
         const user = userCredential.user;
         const userID = user.uid;
-        const userEmail = user.email;
-
-        const response = await axiosPostRequest(`/${type}/find/`, {email: userEmail});
-        dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"], "firebaseID": userID}))
+        const token = userCredential.user.accessToken
+        const response = await axiosPostRequest(`/${type}/find/`, {}, token);
+        dispatch(
+            USER_LOGIN({
+                userID: response["data"]["data"]["_id"],
+                fullName: response["data"]["data"]["name"],
+                headline: response["data"]["data"]["headline"],
+                firebaseID: userID,
+                token: token,
+            })
+        );
         status = "success";
         message = "Login successful";
         navigate(`/${type}/dashboard`)
     }
     catch (error) {
+        console.log(error);
         const errorCode = error.code;
         status = "error"
         title = "Authentication Failed"
         message = "Something went wrong"
         if(errorCode === "auth/wrong-password"){
             message = "Incorrect password"
+        }
+        else if(errorCode === "ERR_BAD_REQUEST"){
+            title = "Unauthorized access"
+            message = "Try to login again"
         }
     }
     return (

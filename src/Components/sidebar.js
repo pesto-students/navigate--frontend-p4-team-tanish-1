@@ -76,7 +76,7 @@ export default function Sidebar(data) {
                     {
                         data.map((nav) => {
                             return (
-                                <NavItem icon={nav["icon"]} to={nav["to"]}>{nav["name"]}</NavItem>
+                                <NavItem key={nav["key"]} icon={nav["icon"]} to={nav["to"]}>{nav["name"]}</NavItem>
                             )
                         })
                     }

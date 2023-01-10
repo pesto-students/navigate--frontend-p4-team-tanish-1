@@ -14,6 +14,7 @@ import InputForm from "../../../Components/EditProfile/inputDetails.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 async function updateStudent(values, navigate, toast) {
     console.log(values);
