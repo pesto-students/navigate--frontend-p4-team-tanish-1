@@ -153,7 +153,7 @@ export default function InputForm({ register, data }) {
                     placeholder="Select option"
                     size="s"
                     {...register("interest")}
-                    defaultValue={data.interest[0]}
+                    defaultValue={data.interest ? data.interest[0] : undefined}
                 >
                     <option value="Artificial Intelligence">Artificial intelligence (AI)</option>
                     <option value="Game Developer">Game Developer</option>

@@ -67,9 +67,11 @@ export default function ViewDetailForm({data}) {
                 <Heading variant="view">Area of Interests</Heading>
                 <Flex w={["90%", "90%", "75%"]} direction={["column", "column", "row"]}>
                     <Card mb="1vw" mr="1.5vw" bg="white" borderRadius="0.3em">
+                    {data.interest ? 
                         <CardBody>
-                            <Text>{data.interest[0]}</Text>
-                        </CardBody>
+                                <Text>{data.interest[0]}</Text>
+                        </CardBody> : <Text>No interest</Text> }    
+                    
                     </Card>
                 </Flex>
             </Flex>

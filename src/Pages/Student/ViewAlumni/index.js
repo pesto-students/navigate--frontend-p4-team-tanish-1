@@ -6,10 +6,18 @@ import { Box, Flex, Icon, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Hero from "../../../Components/hero.js"
 import { NavLink, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchAlumniData } from "../../../redux/userSlice.js";
 
 export default function ViewAlumniProfile(){
     const params = useParams();
-    console.log(params)
+    const alumniID = params['id']
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchAlumniData(alumniID));
+    }, [alumniID])
+    
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>

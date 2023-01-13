@@ -3,8 +3,12 @@ import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Alumni/Sidebar/sidebar.js";
 import MyCard from "../../../Components/Dashboard/profile-card.js";
 import UpcomingSession from "../../../Components/Dashboard/upcoming-session.js";
+import { useSelector } from "react-redux";
 
 export default function Dashboard(){
+    // const {name, headline} = useSelector((state) => {
+    //     return state.user.userData
+    // });
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>
@@ -12,7 +16,7 @@ export default function Dashboard(){
                 <Navbar />
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
-                        <MyCard />
+                        <MyCard name={"name"} headline={"headline"} />
                         <UpcomingSession />
                     </Flex>
                 </Box>

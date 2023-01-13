@@ -19,7 +19,7 @@ export default function Dashboard() {
                 <Navbar />
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
-                        <MyCard fullName={name} headline={headline}/>
+                        <MyCard name={name} headline={headline}/>
                         <UpcomingSession />
                     </Flex>
                     <Heading fontSize="1.4em" color="secondary" mb="4vh">
