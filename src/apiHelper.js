@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL: "http://localhost:4000/" 
+    baseURL: process.env.REACT_APP_API_HOST,
 });
 
 let accessToken = localStorage.getItem("access");
