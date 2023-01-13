@@ -28,7 +28,7 @@ export default function ViewProfile(){
                 <Hero fullName={userData.name}/>
                 <Button as={NavLink} to="/student/edit-profile" float="right" variant="edit"><Icon as={EditIcon} variant="profile"/>Edit</Button>
                 <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>
-                    <ViewDetail />
+                    <ViewDetail data={userData} />
                 </Box>
             </Box>
         </Flex>
