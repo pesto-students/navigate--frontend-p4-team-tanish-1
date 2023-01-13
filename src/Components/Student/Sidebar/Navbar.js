@@ -16,7 +16,7 @@ import logoSQ from "../../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { USER_LOGOUT } from "../../../redux/userReducer.js";
+import { USER_LOGOUT } from "../../../redux/userSlice.js";
 
 async function UserSignOut(navigate, dispatch) {
     const auth = getAuth(app);

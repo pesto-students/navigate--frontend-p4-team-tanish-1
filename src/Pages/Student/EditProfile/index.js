@@ -14,12 +14,17 @@ import InputForm from "../../../Components/EditProfile/inputDetails.js";
 import { NavLink, useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useForm } from "react-hook-form";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchUserData, UPDATE_USER_PROFILE } from "../../../redux/userSlice.js";
 
-async function updateStudent(values, navigate, toast) {
-    console.log(values);
-    const response = await axiosPostRequest("/student/123", values);
-    console.log(response);
+async function updateStudent(values, userID, helpers) {
+    const {navigate, toast, dispatch} = helpers;
+    const response = await axiosPostRequest(`/student/update/${userID}`, values);
     navigate("/student/dashboard");
+    dispatch(UPDATE_USER_PROFILE({
+        userData: values
+    }))
     return toast({
         title: "Your profile updated successfully",
         status: "success",
@@ -30,6 +35,13 @@ async function updateStudent(values, navigate, toast) {
 }
 
 export default function Profile() {
+    const userData = useSelector((state) => state.user.userData)
+    const {_id, name} = userData
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchUserData(_id));
+    }, [_id])
+    
     const navigate = useNavigate();
     const toast = useToast();
     const {
@@ -43,15 +55,15 @@ export default function Profile() {
             <Sidebar />
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero />
+                <Hero fullName={name}/>
                 <Box pt="16vh">
                     <form
                         onSubmit={handleSubmit((values) =>
-                            updateStudent(values, navigate, toast)
+                            updateStudent(values, _id, {navigate, toast, dispatch})
                         )}
                     >
                         <FormControl p="2vw" w="100%" mb="5em">
-                            <InputForm register={register} />
+                            <InputForm data={userData} register={register} />
                             <Button
                                 variant="edit"
                                 type="submit"

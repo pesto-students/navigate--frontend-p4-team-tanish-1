@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
-import { USER_LOGIN } from "../../../redux/userReducer.js";
+import { USER_LOGIN } from "../../../redux/userSlice.js";
 import { useDispatch } from "react-redux";
 
 const auth = getAuth(app);
@@ -31,10 +31,16 @@ async function loginUser (values, navigate, toast, dispatch) {
         );
         const user = userCredential.user;
         const userID = user.uid;
-        const userEmail = user.email;
-
-        const response = await axiosPostRequest(`/${type}/find/`, {email: userEmail});
-        dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"], "firebaseID": userID}))
+        const token = userCredential.user.accessToken;
+        localStorage.setItem("access", token);
+        const response = await axiosPostRequest(`/${type}/find/`, {}, token);
+        dispatch(
+            USER_LOGIN({
+                userData: response["data"]["data"],
+                firebaseID: userID,
+                token: token,
+            })
+        );
         status = "success";
         message = "Login successful";
         navigate(`/${type}/dashboard`)
@@ -46,6 +52,14 @@ async function loginUser (values, navigate, toast, dispatch) {
         message = "Something went wrong"
         if(errorCode === "auth/wrong-password"){
             message = "Incorrect password"
+        }
+        else if(errorCode === "auth/user-not-found"){
+            title = "User does not exist"
+            message = "Create your account to continue"
+        }
+        else if(errorCode === "ERR_BAD_REQUEST"){
+            title = "Unauthorized access"
+            message = "Try to login again"
         }
     }
     return (

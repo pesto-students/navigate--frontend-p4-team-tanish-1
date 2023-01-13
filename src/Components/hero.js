@@ -2,7 +2,7 @@ import { Box, Flex, Image, Heading } from "@chakra-ui/react";
 import heroBg from "../Assets/hero-bg-crop.jpg";
 import profile from "../Assets/profile.jpg";
 
-export default function Hero(){
+export default function Hero({fullName}){
     return(
         <Box h="24vh" bg={`url(${heroBg})`} backgroundPosition="center" backgroundSize={'100%'}>
             <Flex align="center" direction="column">
@@ -14,7 +14,7 @@ export default function Hero(){
                     objectFit="cover"
                     alt="your profile photo"
                 />
-                <Heading variant="profile-name">Gretchen Curtis</Heading>
+                <Heading variant="profile-name">{fullName}</Heading>
             </Flex>
         </Box>
     )

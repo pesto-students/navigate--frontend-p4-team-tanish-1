@@ -19,7 +19,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useDispatch } from "react-redux";
-import { USER_LOGIN } from "../../../redux/userReducer.js";
+import { USER_LOGIN } from "../../../redux/userSlice.js";
 
 const auth = getAuth(app);
 /* Need to Handle and display error messages of firebase and form validations properly
@@ -34,23 +34,33 @@ async function CreateUser(values, navigate, toast, dispatch) {
 
         try{
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-            // const user = userCredential.user;
+            const user = userCredential.user;
+            const userID = user.uid;
+            const token = userCredential.user.accessToken
+            localStorage.setItem("access", token);   
             const body = {
                 name: name,
-                email: email
+                email: email,
+                firebaseID: userID
             }
-            const response = await axiosPostRequest(`/${type}/create`, body)
-            dispatch(USER_LOGIN({"userID": response["data"]["data"]["_id"]}))
+            const response = await axiosPostRequest(`/${type}/create`, body, token)
+            dispatch(
+                USER_LOGIN({
+                    userData: response["data"]["data"],
+                    firebaseID: userID,
+                    token: token,
+                })
+            );
             message = "SignUp Successfull"
             status = "success"
-            navigate(`/${type}/profile`)
+            navigate(`/${type}/edit-profile`)
         }
         catch(error) {
-            console.log(error);
             status = "error"
             message = "Something went wrong"
             const errCode = error.code
             if(errCode === 'auth/email-already-in-use'){
+                title = "Email already registered"
                 message = "User already registered please login to continue"
             }
             else if(errCode === "auth/invalid-email"){

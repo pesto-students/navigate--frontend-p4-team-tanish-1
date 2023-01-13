@@ -7,7 +7,7 @@ import {
     Select,
 } from "@chakra-ui/react";
 
-function CustomInput({ register, id, placeholder, type = "text" }) {
+function CustomInput({ register, id, placeholder, val, type = "text" }) {
     return (
         <Input
             id={id}
@@ -15,12 +15,13 @@ function CustomInput({ register, id, placeholder, type = "text" }) {
             placeholder={placeholder}
             type={type}
             variant="form"
+            defaultValue={val}
             {...register(id)}
         />
     );
 }
 
-export default function InputForm({ register }) {
+export default function InputForm({ register, data }) {
     return (
         <>
             <Flex
@@ -34,6 +35,7 @@ export default function InputForm({ register }) {
                     id="headline"
                     placeholder="your headline"
                     register={register}
+                    val={data.headline}
                 />
             </Flex>
             <Flex
@@ -50,6 +52,7 @@ export default function InputForm({ register }) {
                     type="text"
                     mb="2vh"
                     variant="form"
+                    defaultValue={data.bio}
                     {...register("bio")}
                 />
             </Flex>
@@ -70,6 +73,7 @@ export default function InputForm({ register }) {
                             id="organization"
                             placeholder="Organization name"
                             register={register}
+                            val={data.organization}
                         />
                     </Flex>
                     <Flex
@@ -81,6 +85,7 @@ export default function InputForm({ register }) {
                             id="role"
                             placeholder="Your Role"
                             register={register}
+                            val={data.role}
                         />
                     </Flex>
                     <Flex
@@ -96,7 +101,7 @@ export default function InputForm({ register }) {
                             mb="2vh"
                             variant="form"
                             {...register("workSummary")}
-                        />
+                            defaultValue={data.workSummary}/>
                     </Flex>
                 </Box>
             </Flex>
@@ -117,6 +122,7 @@ export default function InputForm({ register }) {
                             id="institution"
                             placeholder="Institution name"
                             register={register}
+                            val={data.institution}
                         />
                     </Flex>
                     <Flex
@@ -128,6 +134,7 @@ export default function InputForm({ register }) {
                             id="course"
                             placeholder="Course name"
                             register={register}
+                            val={data.course}
                         />
                     </Flex>
                 </Box>
@@ -146,13 +153,14 @@ export default function InputForm({ register }) {
                     placeholder="Select option"
                     size="s"
                     {...register("interest")}
+                    defaultValue={data.interest[0]}
                 >
-                    <option value="ai">Artificial intelligence (AI)</option>
-                    <option value="option2">Game Developer</option>
-                    <option value="option3">Computer Network</option>
-                    <option value="option3">Graphics Design</option>
-                    <option value="option3">Information Security</option>
-                    <option value="option3">Data Science</option>
+                    <option value="Artificial Intelligence">Artificial intelligence (AI)</option>
+                    <option value="Game Developer">Game Developer</option>
+                    <option value="Computer Network">Computer Network</option>
+                    <option value="Graphics Design">Graphics Design</option>
+                    <option value="Information Security">Information Security</option>
+                    <option value="Data Science">Data Science</option>
                 </Select>
             </Flex>
         </>
