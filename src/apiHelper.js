@@ -10,14 +10,15 @@ async function axiosGetRequest(path, token=accessToken){
     const response = await client.get(path, {
         headers: {
             Authorization : `Bearer ${token}`
-        }        
+        }
     });
     return response
 }
 
 async function axiosPostRequest(path, body, token=accessToken){
     const data = await client.post(path, body,{
-        headers: { 
+        headers: {
+            Authorization : `Bearer ${token}`,
             "Content-Type": "application/x-www-form-urlencoded"
         }
     })
