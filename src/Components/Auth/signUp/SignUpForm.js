@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import app from "../../../firebase-config.js";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../../../firebase-config.js";
 import {
     Flex,
     Text,
@@ -21,7 +21,6 @@ import { axiosPostRequest } from "../../../apiHelper.js";
 import { useDispatch } from "react-redux";
 import { USER_LOGIN } from "../../../redux/userSlice.js";
 
-const auth = getAuth(app);
 /* Need to Handle and display error messages of firebase and form validations properly
    Store Access token and other details on client side */
 

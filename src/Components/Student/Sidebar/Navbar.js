@@ -1,5 +1,5 @@
-import { getAuth, signOut } from "firebase/auth";
-import app from "../../../firebase-config.js";
+import { signOut } from "firebase/auth";
+import auth from "../../../firebase-config.js";
 import {
     Box,
     Image,
@@ -19,7 +19,6 @@ import { useDispatch } from "react-redux";
 import { USER_LOGOUT } from "../../../redux/userSlice.js";
 
 async function UserSignOut(navigate, dispatch) {
-    const auth = getAuth(app);
     try{
         await signOut(auth)
         dispatch(USER_LOGOUT());

@@ -16,7 +16,7 @@ function upcomingSession() {
     return (
         <Card
             bg="white"
-            width={["90%", "90%", "90%", "70%"]}
+            width={["100%", "100%", "100%", "70%"]}
             borderRadius="0.5em"
         >
             <CardBody>

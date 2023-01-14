@@ -10,11 +10,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchAlumniData } from "../../../redux/userSlice.js";
 import { axiosPostRequest } from "../../../apiHelper.js";
-import { UPDATE_USER_PROFILE } from "../../../redux/userSlice.js";
+import UPDATE_USER_PROFILE from "../../../redux/userSlice.js";
+import AlumniPricingEdit from "../../../Components/EditProfile/pricingAvailability.js";
 
 async function updateAlumni(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;
-    const response = await axiosPostRequest(`/alumni/update/${userID}`, values);
+    const availabilityMap = {
+        weekdaysFrom:values.weekdaysFrom,
+        weekdaysTo:values.weekdaysTo,
+        weekendFrom:values.weekendFrom,
+        weekendTo:values.weekendTo
+    }
+    const body = Object.assign(availabilityMap,values)
+    console.log(body);
+    // values["availability"] = availabilityMap
+    const response = await axiosPostRequest(`/alumni/update/${userID}`, body);
     navigate("/alumni/dashboard");
     dispatch(UPDATE_USER_PROFILE({
         userData: values
@@ -49,27 +59,22 @@ export default function AlumniEditProfile(){
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
                 <Hero fullName={name}/>
-                <Box pt="16vh">
+                <Box pt="16vh" mb="5em">
                     <form
                         onSubmit={handleSubmit((values) =>
                             updateAlumni(values, _id, {navigate, toast, dispatch})
                         )}
                     >
-                        <FormControl p="2vw" w="100%" mb="5em">
+                        <FormControl p="2vw" w="100%">
                             <InputForm data={userData} register={register} />
-                            <Button
-                            variant="edit"
-                            type="submit"
-                            isLoading={isSubmitting}
-                        >
-                            <Icon as={FaSave} variant="profile" />
+                            <AlumniPricingEdit data={userData} register={register} />
+                        </FormControl>
+                        <Button ml={"2vw"} variant="edit" type="submit" isLoading={isSubmitting}><Icon as={FaSave} variant="profile" />
                             Save
                         </Button>
-                        <Button variant="edit" as={NavLink} to="/student/dashboard">
-                            <Icon as={FaTimesCircle} variant="profile" />
+                        <Button variant="edit" as={NavLink} to="/student/dashboard"><Icon as={FaTimesCircle} variant="profile" />
                             Cancel
                         </Button>
-                    </FormControl>
                 </form>
             </Box>
             </Box>

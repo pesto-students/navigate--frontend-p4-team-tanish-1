@@ -4,6 +4,8 @@ import Sidebar from "../../../Components/Alumni/Sidebar/sidebar.js";
 import MyCard from "../../../Components/Dashboard/profile-card.js";
 import UpcomingSession from "../../../Components/Dashboard/upcoming-session.js";
 import { useSelector } from "react-redux";
+import PreviousSession from "../../../Components/alumniTable/previousSession.js";
+import Session from "../../../Components/alumniTable/recentSession.js";
 
 export default function Dashboard(){
     // const {name, headline} = useSelector((state) => {
@@ -19,6 +21,8 @@ export default function Dashboard(){
                         <MyCard name={"name"} headline={"headline"} />
                         <UpcomingSession />
                     </Flex>
+                    <Session />
+                    <PreviousSession/>
                 </Box>
             </Box>
         </Flex>

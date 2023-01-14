@@ -13,9 +13,10 @@ import React from "react";
 import first from "../../Assets/profile.jpg";
 import { NavLink } from "react-router-dom";
 
-function alumniCard() {
+function alumniCard({data}) {
+    const link = `/alumni/${data._id}`
     return (
-        <Card bg="white" as={NavLink} to="/alumni/123" width={["40vh", "45vh"]} borderRadius="0.7em">
+        <Card bg="white" as={NavLink} to={link} width={["40vh", "45vh"]} borderRadius="0.7em">
             <Image
                 src={first}
                 alt="Alumni photo"
@@ -29,15 +30,13 @@ function alumniCard() {
                             fontWeight="500"
                             color="secondary"
                         >
-                            Software & Tech
+                            {data.interest[0]}
                         </Text>
                         <Text fontWeight="500" fontSize="1.5em">
-                            Kadin Philips
+                            {data.name}
                         </Text>
                         <Text fontSize="0.9em">
-                            Hobbyist developer and FOSS hacker for close to two
-                            decades. Co-founded Mooli Tech, and CTO at Mooli,
-                            World's largest stock broker.
+                            {data.bio}
                         </Text>
                     </Stack>
                 </Flex>

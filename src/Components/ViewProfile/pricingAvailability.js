@@ -6,7 +6,8 @@ import {
     Heading,
 } from "@chakra-ui/react";
 
-export default function AlumniPricingAvailability() {
+export default function AlumniPricingAvailability({data}) {
+    console.log(data);
     return (
         <>
             <Flex
@@ -23,8 +24,23 @@ export default function AlumniPricingAvailability() {
                 >
                     <CardBody>
                         <Text>
-                            Monday to Friday - 8:00 PM to 10:00 PM , Saturday,
-                            Sunday - 11:00 AM to 04:00 PM
+                            Weekdays -{" "}
+                            {!data.availability.weekdaysFrom
+                                ? "--"
+                                : data.availability.weekdaysFrom}{" "}
+                            to{" "}
+                            {!data.availability.weekdaysTo
+                                ? "--"
+                                : data.availability.weekdaysTo}
+                            <br />
+                            Weekends -{" "}
+                            {!data.availability.weekendFrom
+                                ? "--"
+                                : data.availability.weekendFrom}{" "}
+                            to{" "}
+                            {!data.availability.weekendTo
+                                ? "--"
+                                : data.availability.weekendTo}
                         </Text>
                     </CardBody>
                 </Card>
@@ -42,7 +58,7 @@ export default function AlumniPricingAvailability() {
                     borderRadius="0.3em"
                 >
                     <CardBody>
-                        <Text>150 Rs per hour</Text>
+                        <Text>{data.pricing} Rs per hour</Text>
                     </CardBody>
                 </Card>
             </Flex>

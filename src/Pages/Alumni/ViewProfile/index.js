@@ -8,6 +8,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchAlumniData } from "../../../redux/userSlice.js";
+import AlumniPricingAvailability from "../../../Components/ViewProfile/pricingAvailability.js";
 
 export default function AlumniViewProfile(){
     const userData = useSelector((state) => {
@@ -27,7 +28,8 @@ export default function AlumniViewProfile(){
                 <Hero fullName={name} />
                 <Button as={NavLink} to="/alumni/edit-profile" float="right" variant="edit"><Icon as={EditIcon} variant="profile"/>Edit</Button>
                     <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>
-                        <ViewDetail data={userData}/>
+                        <ViewDetail data={userData}/>                    
+                        <AlumniPricingAvailability data={userData} />
                     </Box>
             </Box>
         </Flex>

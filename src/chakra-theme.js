@@ -86,6 +86,10 @@ const theme = extendTheme({
                 schedule: {
                     fontSize: "18px",
                     fontWeight: "500"
+                },
+                "table-header": {
+                    fontSize: ["sm","md","lg"],
+                    fontWeight: 600
                 }
             },
         },
@@ -131,6 +135,14 @@ const theme = extendTheme({
                 variant: "spaced",
             },
         },
+        Text: {
+            variants: {
+                tableHeaders: {
+                    color: "secondary",
+                    fontWeight:600
+                }
+            }
+        }
     },
 });
 

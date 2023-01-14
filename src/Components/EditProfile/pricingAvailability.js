@@ -6,7 +6,7 @@ import {
     Text,
 } from "@chakra-ui/react";
 
-export default function AlumniPricingEdit({register}) {
+export default function AlumniPricingEdit({data, register}) {
     return (
         <>
             <Flex justify="space-between" direction={["column", "column", "row"]}>
@@ -20,6 +20,7 @@ export default function AlumniPricingEdit({register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekdaysFrom")}
+                            defaultValue={data.availability.weekdaysFrom}
                         /> to 
                         <Input
                             id="weekdaysTo"
@@ -27,6 +28,7 @@ export default function AlumniPricingEdit({register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekdaysTo")}
+                            defaultValue={data.availability.weekdaysTo}
                         /> 
                     </Flex>
                     <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
@@ -37,6 +39,7 @@ export default function AlumniPricingEdit({register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekendFrom")}
+                            defaultValue={data.availability.weekendsFrom}
                         /> to 
                         <Input
                             id="weekdaysTo"
@@ -44,6 +47,7 @@ export default function AlumniPricingEdit({register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekendTo")}
+                            defaultValue={data.availability.weekendsTo}
                         /> 
                     </Flex>
                 </Box>
@@ -59,6 +63,7 @@ export default function AlumniPricingEdit({register}) {
                     type="number" textAlign="center"
                     variant='form'
                     {...register("pricing")}
+                    defaultValue = {data.pricing}
                 />
                 <Text variant="profile" fontWeight="regular" ml="0.5vw">Rs per hour</Text>
                 </Flex>

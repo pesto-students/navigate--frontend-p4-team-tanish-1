@@ -6,18 +6,20 @@ import { Box, Flex, Icon, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Hero from "../../../Components/hero.js"
 import { NavLink, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchAlumniData } from "../../../redux/userSlice.js";
+import { useEffect, useState } from "react";
+import { getAlumni } from "../../../API.js";
 
 export default function ViewAlumniProfile(){
     const params = useParams();
     const alumniID = params['id']
-    const dispatch = useDispatch();
+    const [alumni, setAlumni] = useState({})
     useEffect(() => {
-        dispatch(fetchAlumniData(alumniID));
-    }, [alumniID])
-    
+        async function fetchAlumni(){
+            const response = await getAlumni(alumniID)
+            console.log(response);
+            setAlumni(response['data'])
+        } fetchAlumni();
+    }, [])
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>
@@ -26,9 +28,9 @@ export default function ViewAlumniProfile(){
                 <Hero fullName={"Chand"} />
                 <Button as={NavLink} to="/student/search" float="left" variant="edit"><Icon as={ArrowBackIcon} variant="profile"/>Back</Button>
                 <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>    
-                    <ViewAlumniDetail />
-                    <AlumniPricingAvailability />            
-                    <Button as={NavLink} to="/student/booking" mt="2vh" fontWeight="normal">Book Session</Button>
+                    <ViewAlumniDetail data={alumni} />
+                    <AlumniPricingAvailability data={alumni} />            
+                    <Button as={NavLink} to={`/student/booking?alumni=${alumni._id}`} mt="2vh" fontWeight="normal">Book Session</Button>
                 </Box>
             </Box>
         </Flex>

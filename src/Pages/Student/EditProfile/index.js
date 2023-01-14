@@ -16,7 +16,8 @@ import { axiosPostRequest } from "../../../apiHelper.js";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchUserData, UPDATE_USER_PROFILE } from "../../../redux/userSlice.js";
+import UPDATE_USER_PROFILE from "../../../redux/userSlice.js";
+import { fetchUserData } from "../../../redux/userSlice.js";
 
 async function updateStudent(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;

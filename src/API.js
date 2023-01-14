@@ -1,4 +1,4 @@
-import { axiosGetRequest } from "./apiHelper.js";
+import { axiosGetRequest, axiosPostRequest } from "./apiHelper.js";
 
 async function getStudent(studentID){
     try{
@@ -40,4 +40,17 @@ async function listAlumni(){
     }
 }
 
-export {getStudent, getAlumni, listAlumni}
+async function suggestedAlumni(interest){
+    try{
+        const body = {
+            interest: interest
+        }
+        const response = await axiosPostRequest(`/alumni/suggested/`, body)
+        return response['data']
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+export {getStudent, getAlumni, listAlumni, suggestedAlumni}

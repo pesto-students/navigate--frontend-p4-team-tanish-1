@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import app from "../../../firebase-config.js";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import auth from "../../../firebase-config.js";
 import {
     Text,
     Box,
@@ -17,8 +17,6 @@ import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { USER_LOGIN } from "../../../redux/userSlice.js";
 import { useDispatch } from "react-redux";
-
-const auth = getAuth(app);
 
 async function loginUser (values, navigate, toast, dispatch) {
     const { email, password, type } = values;
