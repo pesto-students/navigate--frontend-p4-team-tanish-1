@@ -17,7 +17,7 @@ export default function Booking({ register }) {
                 placeholder="Topic"
                 type="text"
                 variant='form'
-                {...register("headline")}
+                {...register("topic")}
             />
         </Flex>
         <Flex justify="space-between" direction={["column", "column", "row"]}>
@@ -29,7 +29,7 @@ export default function Booking({ register }) {
                 type="text"
                 mb="2vh"
                 variant='form'
-                {...register("bio")}
+                {...register("agenda")}
             />
         </Flex>
         <Flex justify="space-between" direction={["column", "column", "row"]}>
@@ -43,21 +43,21 @@ export default function Booking({ register }) {
                                 w={['45%', '45%', '25%']}
                                 type="date" textAlign="center"
                                 variant='form' mr="2vw"
-                                {...register("weekdaysFrom")}
+                                {...register("date")}
                             /><Text fontWeight="500">From</Text>
                             <Input
                                 id="availabilityFrom"
                                 w={['45%', '45%', '25%']}
                                 type="time" textAlign="center"
                                 variant='form' ml="1vw" mr="2vw"
-                                {...register("weekdaysFrom")}
+                                {...register("from")}
                             /><Text fontWeight="500">To</Text>
                             <Input
                                 id="availabilityTo"
                                 w={['45%', '45%', '25%']}
                                 type="time" textAlign="center"
                                 variant='form' ml="1vw"
-                                {...register("weekdaysTo")}
+                                {...register("to")}
                             />
                         </Flex>
                     </Box>
@@ -65,7 +65,7 @@ export default function Booking({ register }) {
             </Box>
         </Flex>
         <Flex align="center" justify="space-between" direction={["column", "column", "row"]}>
-            <FormLabel variant="profile" color="secondary">Amount to Pay</FormLabel>
+            <FormLabel variant="profile" color="secondary">Pay</FormLabel>
             <Box w={["100%", "100%", "75%"]}>
                 <Flex justify="flex-start" align="center">
                     <Input
@@ -74,7 +74,7 @@ export default function Booking({ register }) {
                         placeholder="100"
                         type="number" textAlign="center"
                         variant='form'
-                        {...register("pricing")}
+                        {...register("amount")}
                     />
                     <Text variant="profile" fontWeight="regular" ml="0.5vw">Rs</Text>
                 </Flex>

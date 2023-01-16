@@ -20,7 +20,7 @@ export default function AlumniPricingEdit({data, register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekdaysFrom")}
-                            defaultValue={data.availability.weekdaysFrom}
+                            defaultValue={data.weekdaysFrom}
                         /> to 
                         <Input
                             id="weekdaysTo"
@@ -28,7 +28,7 @@ export default function AlumniPricingEdit({data, register}) {
                             type="time" textAlign="center"
                             variant='form'
                             {...register("weekdaysTo")}
-                            defaultValue={data.availability.weekdaysTo}
+                            defaultValue={data.weekdaysTo}
                         /> 
                     </Flex>
                     <Flex justify="space-evenly" align="center" direction={["column", "column", "row"]}>
@@ -38,16 +38,16 @@ export default function AlumniPricingEdit({data, register}) {
                             w={['50%','50%','30%']}
                             type="time" textAlign="center"
                             variant='form'
-                            {...register("weekendFrom")}
-                            defaultValue={data.availability.weekendsFrom}
+                            {...register("weekendsFrom")}
+                            defaultValue={data.weekendsFrom}
                         /> to 
                         <Input
                             id="weekdaysTo"
                             w={['50%','50%','30%']}
                             type="time" textAlign="center"
                             variant='form'
-                            {...register("weekendTo")}
-                            defaultValue={data.availability.weekendsTo}
+                            {...register("weekendsTo")}
+                            defaultValue={data.weekendsTo}
                         /> 
                     </Flex>
                 </Box>

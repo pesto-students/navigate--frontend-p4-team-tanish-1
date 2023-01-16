@@ -9,13 +9,29 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { suggestedAlumni } from "../../../API.js";
 import { useEffect, useState } from "react";
+import { axiosGetRequest, axiosPostRequest } from "../../../apiHelper.js";
 
 export default function Dashboard() {
-    const {name, headline, interest} = useSelector((state) => {
+    const {name, headline, interest, _id} = useSelector((state) => {
         return state.user.userData
     });
 
+    const [upcomingData, setUpcomingData] = useState({});
     const [alumniData, setAlumniData] = useState([])
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            const body = {
+                studentID: _id
+            }
+            console.log(body);
+            const response = await axiosPostRequest('/booking/upcoming/', body);
+            console.log(response, "----");
+            setUpcomingData(response['data']['data']);
+        }
+        fetchData();
+    }, [])
+
     useEffect(() => {
         async function suggestedAlumniList(){
             const response = await suggestedAlumni(interest[0])
@@ -31,7 +47,7 @@ export default function Dashboard() {
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
                         <MyCard name={name} headline={headline}/>
-                        <UpcomingSession />
+                        <UpcomingSession data={upcomingData}/>
                     </Flex>
                     <Heading fontSize="1.4em" color="secondary" mb="4vh">
                         Suggested Alumni

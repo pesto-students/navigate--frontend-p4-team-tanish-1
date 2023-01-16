@@ -15,16 +15,8 @@ import AlumniPricingEdit from "../../../Components/EditProfile/pricingAvailabili
 
 async function updateAlumni(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;
-    const availabilityMap = {
-        weekdaysFrom:values.weekdaysFrom,
-        weekdaysTo:values.weekdaysTo,
-        weekendFrom:values.weekendFrom,
-        weekendTo:values.weekendTo
-    }
-    const body = Object.assign(availabilityMap,values)
-    console.log(body);
-    // values["availability"] = availabilityMap
-    const response = await axiosPostRequest(`/alumni/update/${userID}`, body);
+    console.log(values);
+    const response = await axiosPostRequest(`/alumni/update/${userID}`, values);
     navigate("/alumni/dashboard");
     dispatch(UPDATE_USER_PROFILE({
         userData: values

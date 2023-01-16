@@ -12,7 +12,9 @@ import cardArticle from "../../Assets/profile.jpg";
 import { Button } from "@chakra-ui/button";
 import { FaVideo } from "react-icons/fa/index.js";
 
-function upcomingSession() {
+function upcomingSession({data}) {
+    console.log(data);
+    console.log("hello ------");
     return (
         <Card
             bg="white"
@@ -20,7 +22,7 @@ function upcomingSession() {
             borderRadius="0.5em"
         >
             <CardBody>
-                <Flex direction={["column", "row", "row"]}>
+                <Flex direction={["column", "row", "row"]} justifyContent="space-between">
                     <Flex direction="column" align="flex-start" mx="0.5em">
                         <Stack
                             mt="2"
@@ -40,13 +42,10 @@ function upcomingSession() {
                                 fontWeight="500"
                                 color="secondary"
                             >
-                                Join upcoming session with John Doe
+                                Join upcoming session
                             </Text>
                             <Text fontSize="0.9em" mb="2em">
-                                Agenda - I am a student in sophomore year in the
-                                field of Computer Science and Engineering. I am
-                                willing to learn more about how Software
-                                Engineering really works at enterprise level.
+                                Agenda - {data.agenda}
                             </Text>
                         </Stack>
                         <Button

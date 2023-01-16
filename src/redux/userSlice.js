@@ -19,9 +19,9 @@ export const userSlice = createSlice({
         },
         USER_LOGOUT: (state) => {
             state.isAuthenticated = false;
-            state.access = "";
-            state.userData = {};
-            state.firebaseID = "";
+            state.access = null;
+            state.userData = null;
+            state.firebaseID = null;
         },
         UPDATE_USER_PROFILE: (state, action) => {
             console.log(action.payload);

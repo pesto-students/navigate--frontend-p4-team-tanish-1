@@ -22,7 +22,7 @@ async function UserSignOut(navigate, dispatch) {
     try{
         await signOut(auth)
         dispatch(USER_LOGOUT());
-        localStorage.clear()
+        sessionStorage.clear()
         navigate("/")
     }
     catch(error) {

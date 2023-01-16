@@ -12,25 +12,29 @@ import { getAlumni } from "../../../API.js";
 export default function ViewAlumniProfile(){
     const params = useParams();
     const alumniID = params['id']
-    const [alumni, setAlumni] = useState({})
+    const [alumniData, setAlumniData] = useState({})
+    const [pricing, setPricing] = useState(0)
+    const [availability, setAvailability] = useState({})
+    console.log(alumniID);
     useEffect(() => {
-        async function fetchAlumni(){
-            const response = await getAlumni(alumniID)
+        const fetchData = async () => {
+            const response = await getAlumni(alumniID);
             console.log(response);
-            setAlumni(response['data'])
-        } fetchAlumni();
+            setAlumniData(response['data'])
+        } 
+        fetchData();
     }, [])
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={"Chand"} />
+                <Hero fullName={alumniData.name} />
                 <Button as={NavLink} to="/student/search" float="left" variant="edit"><Icon as={ArrowBackIcon} variant="profile"/>Back</Button>
-                <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>    
-                    <ViewAlumniDetail data={alumni} />
-                    <AlumniPricingAvailability data={alumni} />            
-                    <Button as={NavLink} to={`/student/booking?alumni=${alumni._id}`} mt="2vh" fontWeight="normal">Book Session</Button>
+                <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}> 
+                    <ViewAlumniDetail data={alumniData} />
+                    <AlumniPricingAvailability data={alumniData} />
+                    <Button as={NavLink} to={`/student/booking/${alumniData._id}`} mt="2vh" fontWeight="normal">Book Session</Button>
                 </Box>
             </Box>
         </Flex>

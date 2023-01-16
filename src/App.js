@@ -32,7 +32,7 @@ function App() {
           <Route exact path="profile" element={<ViewProfile />}/>
           <Route exact path="edit-profile" element={<EditProfile />}/>
           <Route exact path="session-confirm" element={<ConfirmPage />}/>
-          <Route exact path="booking" element={<Booking />}/>
+          <Route exact path="booking/:id" element={<Booking />}/>
           <Route exact path="search" element={<SearchAlumni />}/>
         </Route>
         <Route path="*" element={<h1>404 Page not found</h1>}/>

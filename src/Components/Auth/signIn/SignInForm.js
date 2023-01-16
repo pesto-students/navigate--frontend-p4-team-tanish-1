@@ -30,7 +30,10 @@ async function loginUser (values, navigate, toast, dispatch) {
         const user = userCredential.user;
         const userID = user.uid;
         const token = userCredential.user.accessToken;
-        localStorage.setItem("access", token);
+        console.log(user);
+        setTimeout(function() {
+            sessionStorage.setItem("access", token);
+        }, 1000);
         const response = await axiosPostRequest(`/${type}/find/`, {}, token);
         dispatch(
             USER_LOGIN({

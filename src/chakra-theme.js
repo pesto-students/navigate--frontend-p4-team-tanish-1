@@ -61,6 +61,10 @@ const theme = extendTheme({
                         color: "txt-primary"
                     }
                 },
+                filter: {
+                    bg: "dark",
+                    color: "primary"
+                }
             },
             defaultProps: {
                 variant: "main",

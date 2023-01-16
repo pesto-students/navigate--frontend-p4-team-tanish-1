@@ -23,7 +23,7 @@ async function bookSession(values, alumniDetails, id, helpers) {
         amount: 100
     }
     console.log(body);
-    axiosPostRequest('/booking/create')
+    axiosPostRequest('/booking/create', body);
     navigate('/student/session-confirm');
     return (
         toast({ 
@@ -57,7 +57,6 @@ export default function Booking(){
         register,
         formState: { errors, isSubmitting },
     } = useForm();
-    console.log(errors);
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>

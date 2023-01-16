@@ -36,13 +36,13 @@ async function CreateUser(values, navigate, toast, dispatch) {
             const user = userCredential.user;
             const userID = user.uid;
             const token = userCredential.user.accessToken
-            localStorage.setItem("access", token);   
+            sessionStorage.setItem("access", token);   
             const body = {
                 name: name,
                 email: email,
                 firebaseID: userID
             }
-            const response = await axiosPostRequest(`/${type}/create`, body, token)
+            const response = await axiosPostRequest(`/${type}/create`, body)
             dispatch(
                 USER_LOGIN({
                     userData: response["data"]["data"],
