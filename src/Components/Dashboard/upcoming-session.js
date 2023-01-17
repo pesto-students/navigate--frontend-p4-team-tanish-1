@@ -11,10 +11,27 @@ import React from "react";
 import cardArticle from "../../Assets/profile.jpg";
 import { Button } from "@chakra-ui/button";
 import { FaVideo } from "react-icons/fa/index.js";
+import { getMeetingCredential } from "../../API";
+import { useNavigate } from "react-router-dom";
 
-function upcomingSession({data}) {
-    console.log(data);
-    console.log("hello ------");
+async function joinMeeting(meetingID, helper) {
+    const {navigate} = helper;
+    console.log("MEeeting ID ---> ", meetingID);
+    if(meetingID !== undefined || meetingID !== null){
+        const response = await getMeetingCredential(meetingID);
+        console.log(response.data);
+        const meetingAccessToken = response.data.data.token;
+        await sessionStorage.setItem("meetingToken", meetingAccessToken);
+        navigate('/join')
+    }
+    else{
+        alert("Invalid meeting ID")
+        navigate('/signout')
+    }
+}
+
+export default function UpcomingSession({data}) {
+    const navigate = useNavigate();
     return (
         <Card
             bg="white"
@@ -55,6 +72,7 @@ function upcomingSession({data}) {
                             w="12em"
                             mt="1.5em"
                             mb="1em"
+                            onClick={() => joinMeeting(data.meetingID, {navigate})}
                         >
                             <Icon as={FaVideo} mr="0.7em"></Icon>Join Meeting
                         </Button>
@@ -73,5 +91,3 @@ function upcomingSession({data}) {
         </Card>
     );
 }
-
-export default upcomingSession;

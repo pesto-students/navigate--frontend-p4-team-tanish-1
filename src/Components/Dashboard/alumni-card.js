@@ -11,12 +11,12 @@ import {
 import { StarIcon } from "@chakra-ui/icons";
 import React from "react";
 import first from "../../Assets/profile.jpg";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function alumniCard({data}) {
     const link = `/alumni/${data._id}`
     return (
-        <Card bg="white" as={NavLink} to={link} width={["40vh", "45vh"]} borderRadius="0.7em">
+        <Card bg="white" as={Link} to={link} width={["40vh", "45vh"]} borderRadius="0.7em">
             <Image
                 src={first}
                 alt="Alumni photo"

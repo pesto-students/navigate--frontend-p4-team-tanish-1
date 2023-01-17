@@ -2,6 +2,7 @@
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./Pages/Auth/SignIn/index.js";
 import SignUp from "./Pages/Auth/SignUp/index.js";
+import SignOut from "./Components/Auth/signOut/signout.js";
 import ViewProfile from "./Pages/Student/ViewProfile/index.js";
 import EditProfile from "./Pages/Student/EditProfile/index.js";
 import StudentDashboard from "./Pages/Student/Dashboard/index.js";
@@ -13,6 +14,7 @@ import AlumniDashboard from "./Pages/Alumni/Dashboard/index.js";
 import AlumniViewProfile from "./Pages/Alumni/ViewProfile/index.js";
 import AlumniEditProfile from "./Pages/Alumni/EditProfile/index.js";
 import ConfirmPage from "./Pages/Student/Book Session/confirmation.js";
+import JoinMeeting from "./Components/Meeting/JoinMeeting.js";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route exact path="/" element={<SignIn />}/>
         <Route exact path="/signin" element={<SignIn />}/>
         <Route exact path="/signup" element={<SignUp />}/>
+        <Route path="/signout" element={<SignOut />} />
+        <Route path="/join" element={<JoinMeeting />} />
         <Route path="/alumni">
         <Route exact path=":id" element={<StudentViewAlumniProfile />}></Route>
         <Route exact path="dashboard" element={<AlumniDashboard />}></Route>

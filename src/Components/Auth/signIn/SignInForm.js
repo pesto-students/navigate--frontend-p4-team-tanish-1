@@ -31,10 +31,8 @@ async function loginUser (values, navigate, toast, dispatch) {
         const userID = user.uid;
         const token = userCredential.user.accessToken;
         console.log(user);
-        setTimeout(function() {
-            sessionStorage.setItem("access", token);
-        }, 1000);
-        const response = await axiosPostRequest(`/${type}/find/`, {}, token);
+        await sessionStorage.setItem("accessToken", token);
+        const response = await axiosPostRequest(`/${type}/find/`, {});
         dispatch(
             USER_LOGIN({
                 userData: response["data"]["data"],

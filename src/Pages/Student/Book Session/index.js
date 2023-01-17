@@ -67,7 +67,7 @@ export default function Booking(){
                 <Box pt="16vh">
                 <form onSubmit={handleSubmit((values) => bookSession(values, alumniDetails, _id, {navigate, toast}))}>
                     <FormControl p="2vw" w="100%" mb="5em">
-                        <BookSession register={register} />            
+                        <BookSession data={alumniDetails} register={register} />            
                         <Button type="submit" isLoading={isSubmitting} mt="2vh" fontWeight="normal">Confirm Session</Button>
                         </FormControl>
                     </form>

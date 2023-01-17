@@ -5,6 +5,8 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.14",
     "@chakra-ui/react": "^2.4.4",
+    "@dytesdk/react-ui-kit": "^1.41.0",
+    "@dytesdk/react-web-core": "^1.16.2",
     "@fontsource/nunito": "^4.5.11",
     "@fontsource/nunito-sans": "^4.5.10",
     "@reduxjs/toolkit": "^1.9.1",
@@ -14,6 +16,7 @@
     "axios": "^1.2.1",
     "chakra-multiselect": "^0.3.7",
     "firebase": "^9.15.0",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.41.0",

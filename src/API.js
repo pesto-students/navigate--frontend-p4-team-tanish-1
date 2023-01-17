@@ -53,4 +53,17 @@ async function suggestedAlumni(interest){
     }
 }
 
-export {getStudent, getAlumni, listAlumni, suggestedAlumni}
+async function getMeetingCredential(meetingID){
+    try{
+        const body = {
+            meetingID: meetingID
+        }
+        const response = await axiosPostRequest('/meeting/join/', body)
+        return response['data']
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+export {getStudent, getAlumni, listAlumni, suggestedAlumni, getMeetingCredential}

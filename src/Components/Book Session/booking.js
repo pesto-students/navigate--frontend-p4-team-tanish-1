@@ -6,12 +6,15 @@ import {
     Textarea,
     Text,
 } from "@chakra-ui/react";
+import { SelectTime } from "../EditProfile/pricingAvailability";
 
-export default function Booking({ register }) {
+export default function Booking({ register, data }) {
+    console.log(data);
     return (<>
         <Flex justify="space-between" direction={["column", "column", "row"]}>
             <FormLabel variant="profile" color="secondary">Topic of Discussion</FormLabel>
             <Input
+                required
                 id="topic"
                 w={['90%', '90%', '75%']}
                 placeholder="Topic"
@@ -23,6 +26,7 @@ export default function Booking({ register }) {
         <Flex justify="space-between" direction={["column", "column", "row"]}>
             <FormLabel variant="profile" color="secondary">Agenda</FormLabel>
             <Textarea
+                required
                 id="agenda"
                 w={['90%', '90%', '75%']}
                 placeholder="What's on your mind?"
@@ -38,27 +42,16 @@ export default function Booking({ register }) {
                 <Flex justify="space-between" align="center" direction={["column", "column", "row"]}>
                     <Box w={["100%", "100%", "75%"]}>
                         <Flex justify="flex-start" align="center" direction={["column", "column", "row"]}>
-                            <Input
+                            <Input required
                                 id="availabilityDate"
                                 w={['45%', '45%', '25%']}
                                 type="date" textAlign="center"
                                 variant='form' mr="2vw"
                                 {...register("date")}
-                            /><Text fontWeight="500">From</Text>
-                            <Input
-                                id="availabilityFrom"
-                                w={['45%', '45%', '25%']}
-                                type="time" textAlign="center"
-                                variant='form' ml="1vw" mr="2vw"
-                                {...register("from")}
-                            /><Text fontWeight="500">To</Text>
-                            <Input
-                                id="availabilityTo"
-                                w={['45%', '45%', '25%']}
-                                type="time" textAlign="center"
-                                variant='form' ml="1vw"
-                                {...register("to")}
-                            />
+                            /><Text fontWeight="500" m={"2vw"}>From</Text>
+                            <SelectTime m={"2vw"} defaultValue={data.weekdaysFrom} register={register} id={"from"}/>
+                            <Text m={"2vw"} fontWeight="500">To</Text>
+                            <SelectTime m={"2vw"} defaultValue={data.weekdaysTo} register={register} id={"to"}/>
                         </Flex>
                     </Box>
                 </Flex>
