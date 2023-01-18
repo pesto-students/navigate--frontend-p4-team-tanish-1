@@ -10,6 +10,13 @@ import { getAlumni } from "../../../API.js";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useSelector } from "react-redux";
 
+async function callbackHandler(data, navigate){
+    console.log(data);
+    const response = await axiosPostRequest('/payment/verify', data);
+    console.log(response);
+    // navigate('/student/session-confirm');
+}
+
 async function bookSession(values, alumniDetails, id, helpers) {
     const {navigate, toast} = helpers;
     const body = {
@@ -22,19 +29,56 @@ async function bookSession(values, alumniDetails, id, helpers) {
         to: values.to,
         amount: 100
     }
-    console.log(body);
-    axiosPostRequest('/booking/create', body);
-    navigate('/student/session-confirm');
-    return (
-        toast({ 
-            title: "Booking successful",
-            description: "Your session with James Doe is scheduled",
-            status: "success",
-            variant: "top-accent",
-            duration: 5000,
-            isClosable: true,
-        })
-    )
+    const response = await axiosPostRequest('/booking/create', body);
+    const orderID = response.data.order.id
+    const amount = response.data.amount
+    console.log("this is orderid", orderID)
+    var options = {
+        key: process.env.REACT_APP_RAZORPAY_KEY, 
+        amount: amount,
+        currency: "INR",
+        name: "Navigate",
+        description: "Make payment for you session on Navigate",
+        image: "https://example.com/your_logo",
+        order_id: orderID,
+        handler: callbackHandler({
+            order_id: response.razorpay_payment_id,
+            payment_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+        }, navigate),
+        prefill: {
+            "name": "Chand",
+            "email": "test.kumar@example.com",
+            "contact": "9999999999"
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            "color": "#3B58B0"
+        }
+    };
+    const razorPay = new window.Razorpay(options);
+    razorPay.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+    });
+    razorPay.open();
+
+    // navigate('/student/session-confirm');
+    return toast({ 
+                title: "Booking successful",
+                description: "Your session with James Doe is scheduled",
+                status: "success",
+                variant: "top-accent",
+                duration: 5000,
+                isClosable: true,
+            })
 }
 
 export default function Booking(){
@@ -68,7 +112,7 @@ export default function Booking(){
                 <form onSubmit={handleSubmit((values) => bookSession(values, alumniDetails, _id, {navigate, toast}))}>
                     <FormControl p="2vw" w="100%" mb="5em">
                         <BookSession data={alumniDetails} register={register} />            
-                        <Button type="submit" isLoading={isSubmitting} mt="2vh" fontWeight="normal">Confirm Session</Button>
+                        <Button id="rzp-button1" type="submit" isLoading={isSubmitting} mt="2vh" fontWeight="normal">Make payment</Button>
                         </FormControl>
                     </form>
                 </Box>
