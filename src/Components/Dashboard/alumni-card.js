@@ -52,7 +52,7 @@ function alumniCard({data}) {
                     pt="3"
                     w="20em"
                 >
-                    <Text>Fees - 100 Rs / hour</Text>
+                    <Text>Fees - {data.pricing} Rs / hour</Text>
                     <Flex align="center">
                         <Icon
                             color="primary"
@@ -60,7 +60,7 @@ function alumniCard({data}) {
                             mr="0.3em"
                             fontSize="1.2em"
                         ></Icon>
-                        <Text>4.8</Text>
+                        <Text>{data.rating ? data.rating : "Not rated"}</Text>
                     </Flex>
                 </Flex>
             </CardFooter>

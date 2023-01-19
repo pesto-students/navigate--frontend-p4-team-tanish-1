@@ -64,7 +64,7 @@ export default function AlumniEditProfile(){
                         <Button ml={"2vw"} variant="edit" type="submit" isLoading={isSubmitting}><Icon as={FaSave} variant="profile" />
                             Save
                         </Button>
-                        <Button variant="edit" as={NavLink} to="/student/dashboard"><Icon as={FaTimesCircle} variant="profile" />
+                        <Button variant="edit" as={NavLink} onClick={() => navigate(-1)}><Icon as={FaTimesCircle} variant="profile" />
                             Cancel
                         </Button>
                 </form>

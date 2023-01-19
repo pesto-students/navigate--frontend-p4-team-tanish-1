@@ -152,7 +152,7 @@ export default function SignInForm() {
                         {...register("password")}
                     />
                     <Flex mt="2vh" align={"center"}>
-                        <FormLabel>Register as</FormLabel>
+                        <FormLabel>Login as</FormLabel>
                         <RadioGroup id="role" defaultValue="student" name="type">
                             <Stack direction="row">
                                 <Radio colorScheme="orange" value="student" {...register("type")}>

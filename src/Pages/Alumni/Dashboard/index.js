@@ -7,17 +7,22 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import PreviousSession from "../../../Components/alumniTable/previousSession.js";
 import Session from "../../../Components/alumniTable/recentSession.js";
-import { axiosGetRequest } from "../../../apiHelper.js";
+import { axiosPostRequest } from "../../../apiHelper.js";
 
 export default function Dashboard(){
-    const [upcomingData, setUpcomingData] = useState({});
-    const {name, headline} = useSelector((state) => {
+    const {name, headline, interest, _id} = useSelector((state) => {
         return state.user.userData
     });
+    const [upcomingData, setUpcomingData] = useState({});
+    
     useEffect(() => {
         const fetchData = async () => {
-            const response = axiosGetRequest('/student/get');
-            setUpcomingData(response['data']);
+            const body = {
+                alumniID: _id
+            }
+            const response = await axiosPostRequest('/booking/upcoming/alumni', body);
+            console.log(response, "----");
+            setUpcomingData(response['data']['data']);
         }
         fetchData();
     }, [])
@@ -29,7 +34,7 @@ export default function Dashboard(){
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
                         <MyCard name={name} headline={headline} />
-                        {/*<UpcomingSession data={upcomingData} />*/}
+                        <UpcomingSession data={upcomingData} />
                     </Flex>
                     <Session />
                     <PreviousSession/>

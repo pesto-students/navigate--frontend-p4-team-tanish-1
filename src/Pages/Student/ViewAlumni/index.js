@@ -5,7 +5,7 @@ import AlumniPricingAvailability from "../../../Components/ViewProfile/pricingAv
 import { Box, Flex, Icon, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Hero from "../../../Components/hero.js"
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getAlumni } from "../../../API.js";
 
@@ -13,6 +13,7 @@ export default function ViewAlumniProfile(){
     const params = useParams();
     const alumniID = params['id']
     const [alumniData, setAlumniData] = useState({})
+    const navigate = useNavigate();
     const [pricing, setPricing] = useState(0)
     const [availability, setAvailability] = useState({})
     console.log(alumniID);
@@ -30,7 +31,7 @@ export default function ViewAlumniProfile(){
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
                 <Hero fullName={alumniData.name} />
-                <Button as={NavLink} to="/student/search" float="left" variant="edit"><Icon as={ArrowBackIcon} variant="profile"/>Back</Button>
+                <Button onClick={() => navigate(-1)} float="left" variant="edit"><Icon as={ArrowBackIcon} variant="profile"/>Back</Button>
                 <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}> 
                     <ViewAlumniDetail data={alumniData} />
                     <AlumniPricingAvailability data={alumniData} />

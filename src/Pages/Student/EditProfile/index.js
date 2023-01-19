@@ -73,7 +73,7 @@ export default function Profile() {
                                 <Icon as={FaSave} variant="profile" />
                                 Save
                             </Button>
-                            <Button variant="edit" as={NavLink} to="/student/dashboard">
+                            <Button variant="edit" as={NavLink} onClick={() => navigate(-1)}>
                                 <Icon as={FaTimesCircle} variant="profile" />
                                 Cancel
                             </Button>

@@ -7,9 +7,25 @@ import {
     Text,
 } from "@chakra-ui/react";
 import { SelectTime } from "../EditProfile/pricingAvailability";
+import { useState } from "react";
+import { axiosPostRequest } from "../../apiHelper";
 
-export default function Booking({ register, data }) {
-    console.log(data);
+export default function Booking({ register, data, dateSelector }) {
+    const [selectedDate, setSelectedDate] = dateSelector;
+    const [startOptions, setStartOptions] = useState([]);
+    const [endOptions, setendOptions] = useState([]);
+
+    const FetchAvailableSlots = async function(date){
+        await setSelectedDate(date);
+        console.log(date, "this is selected");
+        const body = {
+            alumniID: data._id,
+            date: selectedDate
+        }
+        const response = await axiosPostRequest('/booking/slots', body)
+        console.log(response);
+    }
+
     return (<>
         <Flex justify="space-between" direction={["column", "column", "row"]}>
             <FormLabel variant="profile" color="secondary">Topic of Discussion</FormLabel>
@@ -44,10 +60,12 @@ export default function Booking({ register, data }) {
                         <Flex justify="flex-start" align="center" direction={["column", "column", "row"]}>
                             <Input required
                                 id="availabilityDate"
-                                w={['45%', '45%', '25%']}
+                                width={["30%"]}
+                                minWidth='fit-content'
                                 type="date" textAlign="center"
                                 variant='form' mr="2vw"
                                 {...register("date")}
+                                onChange={(e) => {FetchAvailableSlots(e.target.value)}}
                             /><Text fontWeight="500" m={"2vw"}>From</Text>
                             <SelectTime m={"2vw"} defaultValue={data.weekdaysFrom} register={register} id={"from"}/>
                             <Text m={"2vw"} fontWeight="500">To</Text>
@@ -62,9 +80,10 @@ export default function Booking({ register, data }) {
             <Box w={["100%", "100%", "75%"]}>
                 <Flex justify="flex-start" align="center">
                     <Input
+                        disabled
+                        value={"100"}
                         id="headline"
                         w={['75%', '75%', '10%']}
-                        placeholder="100"
                         type="number" textAlign="center"
                         variant='form'
                         {...register("amount")}

@@ -9,19 +9,20 @@ import { useEffect, useState } from "react";
 import { getAlumni } from "../../../API.js";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useSelector } from "react-redux";
+import logo from "../../../Assets/logos/logo-SQ.png";
 
 async function callbackHandler(data, navigate){
     console.log(data);
     const response = await axiosPostRequest('/payment/verify', data);
     console.log(response);
-    // navigate('/student/session-confirm');
+    navigate('/student/session-confirm');
 }
 
 async function bookSession(values, alumniDetails, id, helpers) {
     const {navigate, toast} = helpers;
     const body = {
-        studentID: id,
-        alumniID: alumniDetails._id,
+        student: id,
+        alumni: alumniDetails._id,
         topic: values.topic,
         agenda: values.agenda,
         date: values.date,
@@ -39,7 +40,7 @@ async function bookSession(values, alumniDetails, id, helpers) {
         currency: "INR",
         name: "Navigate",
         description: "Make payment for you session on Navigate",
-        image: "https://example.com/your_logo",
+        image: {logo},
         order_id: orderID,
         handler: callbackHandler({
             order_id: response.razorpay_payment_id,
@@ -84,6 +85,7 @@ async function bookSession(values, alumniDetails, id, helpers) {
 export default function Booking(){
     const params = useParams();
     const alumniID = params['id']
+    const [selectedDate, setSelectedDate] = useState()
     const [alumniDetails, setalumniDetails] = useState({})
     useEffect(() => {
         async function fetchAlumni(){
@@ -106,12 +108,12 @@ export default function Booking(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={name}/>
+                <Hero fullName={alumniDetails.name}/>
                 
                 <Box pt="16vh">
                 <form onSubmit={handleSubmit((values) => bookSession(values, alumniDetails, _id, {navigate, toast}))}>
                     <FormControl p="2vw" w="100%" mb="5em">
-                        <BookSession data={alumniDetails} register={register} />            
+                        <BookSession data={alumniDetails} register={register} dateSelector={[selectedDate, setSelectedDate]}/>            
                         <Button id="rzp-button1" type="submit" isLoading={isSubmitting} mt="2vh" fontWeight="normal">Make payment</Button>
                         </FormControl>
                     </form>

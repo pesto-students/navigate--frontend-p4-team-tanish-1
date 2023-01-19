@@ -14,6 +14,7 @@ import {
     TableContainer,
 } from "@chakra-ui/react";
 import ashlynn from "../../Assets/profile.jpg";
+import {NoSessionToday} from "../NoData.js"
 
 function ProfileName(){
     return (
@@ -41,7 +42,8 @@ function TableRecord(){
     )
 }
 
-function Session() {
+function Session({ data }) {
+    console.log(data);
     return (
         <Box backgroundColor="white" mb={"7vh"}>
             <Flex p="2vh" justify="space-between" mb="1vh">
@@ -49,7 +51,7 @@ function Session() {
                     Session Scheduled Today
                 </Heading>
             </Flex>
-            <TableContainer alignContent={"center"}>
+            {data ? <TableContainer alignContent={"center"}>
                 <Table>
                     <Thead>
                         <Tr color={"primary"}>
@@ -64,7 +66,7 @@ function Session() {
                         <TableRecord />
                     </Tbody>
                 </Table>
-            </TableContainer>
+            </TableContainer> : <NoSessionToday />}
         </Box>
     );
 }

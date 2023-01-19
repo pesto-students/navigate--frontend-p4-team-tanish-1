@@ -10,7 +10,7 @@ import {
 function CustomInput({ register, id, placeholder, val, type = "text" }) {
     return (
         <Input
-            id={id}
+            id={id} required
             w={["90%", "90%", "75%"]}
             placeholder={placeholder}
             type={type}
@@ -150,6 +150,7 @@ export default function InputForm({ register, data }) {
                     Area of Interest
                 </FormLabel>
                 <Select
+                    required
                     placeholder="Select option"
                     size="s"
                     {...register("interest")}

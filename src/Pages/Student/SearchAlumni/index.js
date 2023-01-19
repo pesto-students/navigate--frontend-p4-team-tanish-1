@@ -5,6 +5,8 @@ import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
 import AlumniCard from "../../../Components/Dashboard/alumni-card.js";
 import { listAlumni } from "../../../API.js";
 import { useEffect, useState } from "react";
+import { NoSearchResult } from "../../../Components/NoData.js";
+import { ListAlumni } from "../Dashboard/index.js";
 
 export default function SearchAlumni(){
     const [alumniData, setAlumniData] = useState([])
@@ -31,7 +33,7 @@ export default function SearchAlumni(){
                     <Button>Search</Button>
                     <Menu>
                     {({ isOpen }) => (
-                        <>
+                        <div>
                         <MenuButton isActive={isOpen} as={Button} variant={"filter"} rightIcon={<ChevronDownIcon />}>
                         Filter
                         </MenuButton>
@@ -39,13 +41,14 @@ export default function SearchAlumni(){
                         <MenuItem>Unpaid only<Switch ml={"1vw"} colorScheme={"orange"}/></MenuItem>
                         <MenuItem>Interests</MenuItem>
                         </MenuList>
-                        </>
+                        </div>
                     )}
                     </Menu>
                 </Flex>
-                {alumniData.map((alumni) => {
-                    return <AlumniCard key={alumni._id} data={alumni}/>
-                })}
+                {alumniData.length !== 0 ?
+                    <Flex direction={["row"]} wrap="wrap" shrink={0} gap="2vh" justifyContent={["space-evenly"]}>
+                            <ListAlumni alumniData={alumniData} />
+                   </Flex> : <NoSearchResult />}
                 </Box>
             </Box>
         </Flex>
