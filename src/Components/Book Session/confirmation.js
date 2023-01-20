@@ -9,9 +9,16 @@ import {
 } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { FcClock, FcGlobe, FcCalendar } from "react-icons/fc/index.js";
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function ScheduleCall() {
+    const {state} = useLocation()
+    const displayDate = new Date(state.data.date);
+    const month = displayDate.toLocaleDateString('default', { month: 'long' });
+    const year = displayDate.getFullYear();
+    const date = displayDate.getDate();
+    const day = displayDate.toLocaleDateString('default', {weekday: 'long'});
+
     return (
         <Flex h="100vh" direction={["column", "column", "row"]}>
             <Flex
@@ -23,17 +30,17 @@ export default function ScheduleCall() {
                 direction="column"
             >
                 <Heading variant="schedule">
-                    Career as a Frontend Developer
+                    {state.data.topic}
                 </Heading>
                 <Flex align="center" columnGap={"2vw"}>
                     <Icon as={FcClock} variant="schedule"></Icon>
-                    <Text>30 minutes</Text>
+                    <Text>60 minutes</Text>
                 </Flex>
                 <Flex align="center" columnGap={"2vw"}>
                     <Icon as={FcCalendar} variant="schedule"></Icon>
                     <Stack direction={"column"} spacing={["0.8", "0.8", "1.5"]}>
-                        <Text>8:00 PM - 8:30 PM</Text>
-                        <Text>Friday, December 09, 2022</Text>
+                        <Text>{`${day}, ${month}, ${date} ${year}`}</Text>
+                        <Text>{state.data.from}</Text>
                     </Stack>
                 </Flex>
                 <Flex align="center" columnGap={"2vw"}>
@@ -49,16 +56,12 @@ export default function ScheduleCall() {
                         width="auto"
                     />
                     <Heading variant="view">
-                        You have scheduled a call with Wilson
-                    </Heading>
-                    <Heading variant="view">
-                        A confirmation mail has been sent to you on
-                        john@gmail.com
+                        You have scheduled A Session
                     </Heading>
                 </Flex>
                 <Flex justify="center">
                     <Button
-                        as={NavLink}
+                        as={Link}
                         to="/student/dashboard"
                         px="2em"
                         mt="1.2vh"

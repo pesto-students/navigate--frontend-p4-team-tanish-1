@@ -7,20 +7,22 @@ import {
     Stack,
     Icon,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import cardArticle from "../../Assets/profile.jpg";
 import { Button } from "@chakra-ui/button";
 import { FaVideo } from "react-icons/fa/index.js";
 import { getMeetingCredential } from "../../API";
 import { useNavigate } from "react-router-dom";
 import { NoUpcoming } from "../NoData";
+import { useSelector } from "react-redux";
 
-async function joinMeeting(data, helper) {
+async function joinMeeting(data, user, helper) {
     const {navigate} = helper;
     const { meetingID, _id } = data
-    console.log("MEeeting ID ---> ", meetingID);
-    if(meetingID !== undefined || meetingID !== null){
-        const response = await getMeetingCredential(_id, meetingID);
+    const name = user.name
+    console.log("---> ", name);
+    if(meetingID !== undefined & _id !== null){
+        const response = await getMeetingCredential(_id, user);
         console.log(response.data);
         const meetingAccessToken = response.data.data.token;
         await sessionStorage.setItem("meetingToken", meetingAccessToken);
@@ -33,6 +35,22 @@ async function joinMeeting(data, helper) {
 }
 
 function UpcomingData({data, navigate}){
+    const userData = useSelector((state) => state.user.userData);
+    const user = {userID: userData._id, name: userData.name}
+    const [isDisabled, setIsDisabled] = useState(true)
+    useEffect(() => {
+        function checkTime(){
+            let current = new Date();
+            let scheduled = new Date(`${data.date}T${data.from}`)
+            setIsDisabled(current < scheduled)
+            console.log(current < scheduled);
+        }
+        const interval = setInterval(() => checkTime(), 5000)
+        return () => {
+          clearInterval(interval);
+        }   
+    })
+
     return (
         <Flex
             direction={["column", "row", "row"]}
@@ -44,7 +62,7 @@ function UpcomingData({data, navigate}){
                         Upcoming Session
                     </Text>
                     <Text fontSize="1.1em" fontWeight="500" color="secondary">
-                        Join upcoming session with {data.alumni.name}
+                        Join upcoming session with {data.alumni.name ? data.alumni.name : data.student.name}
                     </Text>
                     <Text fontSize="0.9em" mb="2em">
                         <b>Agenda</b> - {data.agenda}
@@ -54,16 +72,19 @@ function UpcomingData({data, navigate}){
                     </Text>
                 </Stack>
                 <Button
+                    isDisabled={isDisabled}
                     color="secondary"
                     bg="none"
                     border="1px solid #093d65"
                     w="12em"
                     mt="1.5em"
                     mb="1em"
-                    onClick={() => joinMeeting(data, { navigate })}
+                    title="You can join when session starts"
+                    onClick={() => joinMeeting(data, user, { navigate })}
                 >
                     <Icon as={FaVideo} mr="0.7em"></Icon>Join Meeting
                 </Button>
+                <Text color={"red.500"} display={isDisabled ? "flex" :"none"}>You will be able to join at scheduled date and time</Text>
             </Flex>
             <Image
                 src={cardArticle}

@@ -11,14 +11,8 @@ import { axiosPostRequest } from "../../../apiHelper.js";
 import { useSelector } from "react-redux";
 import logo from "../../../Assets/logos/logo-SQ.png";
 
-async function callbackHandler(data, navigate){
-    console.log(data);
-    const response = await axiosPostRequest('/payment/verify', data);
-    console.log(response);
-    navigate('/student/session-confirm');
-}
-
 async function bookSession(values, alumniDetails, id, helpers) {
+    console.log("-------------", alumniDetails)
     const {navigate, toast} = helpers;
     const body = {
         student: id,
@@ -27,65 +21,75 @@ async function bookSession(values, alumniDetails, id, helpers) {
         agenda: values.agenda,
         date: values.date,
         from: values.from,
-        to: values.to,
-        amount: 100
+        to: (parseInt(values.from.split(":")[0])+1).toString()+":00",
+        amount: alumniDetails.pricing
     }
-    const response = await axiosPostRequest('/booking/create', body);
-    const orderID = response.data.order.id
-    const amount = response.data.amount
-    console.log("this is orderid", orderID)
-    var options = {
-        key: process.env.REACT_APP_RAZORPAY_KEY, 
-        amount: amount,
-        currency: "INR",
-        name: "Navigate",
-        description: "Make payment for you session on Navigate",
-        image: {logo},
-        order_id: orderID,
-        handler: callbackHandler({
-            order_id: response.razorpay_payment_id,
-            payment_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-        }, navigate),
-        prefill: {
-            "name": "Chand",
-            "email": "test.kumar@example.com",
-            "contact": "9999999999"
-        },
-        notes: {
-            "address": "Razorpay Corporate Office"
-        },
-        theme: {
-            "color": "#3B58B0"
-        }
-    };
-    const razorPay = new window.Razorpay(options);
-    razorPay.on('payment.failed', function (response){
-            alert(response.error.code);
-            alert(response.error.description);
-            alert(response.error.source);
-            alert(response.error.step);
-            alert(response.error.reason);
-            alert(response.error.metadata.order_id);
-            alert(response.error.metadata.payment_id);
-    });
-    razorPay.open();
-
-    // navigate('/student/session-confirm');
-    return toast({ 
-                title: "Booking successful",
-                description: "Your session with James Doe is scheduled",
-                status: "success",
-                variant: "top-accent",
-                duration: 5000,
-                isClosable: true,
-            })
+    const createResponse = await axiosPostRequest('/booking/create', body);
+    const isPaymentRequired = createResponse.data.paymentRequired;
+    
+    if(isPaymentRequired){
+        const orderID = createResponse.data.order.id;
+        const amount = createResponse.data.data.amount;
+        var options = {
+            key: process.env.REACT_APP_RAZORPAY_KEY, 
+            amount: amount,
+            currency: "INR",
+            name: "Navigate",
+            description: "Payment for your session on Navigate",
+            image: {logo},
+            order_id: orderID,
+            handler: async function callbackHandler(response){
+                const body = {
+                    payment_id: response.razorpay_payment_id,
+                    order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature
+                }
+                const verifyResponse = await axiosPostRequest('/payment/verify', body);
+                console.log(verifyResponse);
+                if(verifyResponse.data.isVerified){
+                    navigate('/student/session-confirm', {state: createResponse})
+                    return toast({ 
+                        title: "Booking successful",
+                        description: "Your session with Alumni is scheduled",
+                        status: "success",
+                        variant: "top-accent",
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                }
+                else{
+                    navigate('/error')
+                }
+            },
+            prefill: {
+                "name": "Chand",
+                "email": "test.kumar@example.com",
+                "contact": "9999999999"
+            },
+            notes: {
+                "address": "Navigate Corporate Office"
+            },
+            theme: {
+                "color": "#3B58B0"
+            }
+        };
+        const razorPay = new window.Razorpay(options);
+        razorPay.on('payment.failed', function (response){
+            navigate('/error')
+        });
+        razorPay.open();
+    }
+    else{
+        console.log(createResponse.data);
+        navigate('/student/session-confirm', {state: createResponse.data});
+    }
 }
 
 export default function Booking(){
     const params = useParams();
     const alumniID = params['id']
-    const [selectedDate, setSelectedDate] = useState()
+    const todayDate = new Date().toISOString().slice(0, 10)
+    const [selectedDate, setSelectedDate] = useState(todayDate)
     const [alumniDetails, setalumniDetails] = useState({})
     useEffect(() => {
         async function fetchAlumni(){

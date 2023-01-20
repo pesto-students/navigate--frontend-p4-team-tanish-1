@@ -53,11 +53,12 @@ async function suggestedAlumni(interest){
     }
 }
 
-async function getMeetingCredential(_id, meetingID){
+async function getMeetingCredential(_id, username){
     try{
         const body = {
             id: _id,
-            meetingID: meetingID
+            name: username.name,
+            userID: username.userID
         }
         const response = await axiosPostRequest('/meeting/join/', body)
         return response['data']

@@ -9,12 +9,13 @@ import StudentDashboard from "./Pages/Student/Dashboard/index.js";
 import SearchAlumni from "./Pages/Student/SearchAlumni/index.js";
 import Booking from "./Pages/Student/Book Session/index.js";
 import StudentViewAlumniProfile from "./Pages/Student/ViewAlumni/index.js";
-
+import Error500 from "./Pages/Error/500.js";
 import AlumniDashboard from "./Pages/Alumni/Dashboard/index.js";
 import AlumniViewProfile from "./Pages/Alumni/ViewProfile/index.js";
 import AlumniEditProfile from "./Pages/Alumni/EditProfile/index.js";
 import ConfirmPage from "./Pages/Student/Book Session/confirmation.js";
 import JoinMeeting from "./Components/Meeting/JoinMeeting.js";
+import Error404 from "./Pages/Error/404.js";
 
 function App() {
   return (
@@ -39,7 +40,8 @@ function App() {
           <Route exact path="booking/:id" element={<Booking />}/>
           <Route exact path="search" element={<SearchAlumni />}/>
         </Route>
-        <Route path="*" element={<h1>404 Page not found</h1>}/>
+        <Route path="*" element={<Error404 />}/>
+        <Route path="/error" element={<Error500 />} />
         
     </Routes>
   );

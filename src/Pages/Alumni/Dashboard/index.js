@@ -8,24 +8,32 @@ import { useEffect, useState } from "react";
 import PreviousSession from "../../../Components/alumniTable/previousSession.js";
 import Session from "../../../Components/alumniTable/recentSession.js";
 import { axiosPostRequest } from "../../../apiHelper.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard(){
+    const navigate = useNavigate()
     const {name, headline, interest, _id} = useSelector((state) => {
         return state.user.userData
     });
-    const [upcomingData, setUpcomingData] = useState({});
+    const [upcomingData, setUpcomingData] = useState();
     
     useEffect(() => {
         const fetchData = async () => {
             const body = {
                 alumniID: _id
             }
-            const response = await axiosPostRequest('/booking/upcoming/alumni', body);
-            console.log(response, "----");
-            setUpcomingData(response['data']['data']);
+            try{
+                const response = await axiosPostRequest('/booking/upcoming/alumni', body);
+                setUpcomingData(response['data']['data']);
+                console.log(response);
+            }
+            catch(exception){
+                navigate('/signout')
+            }
         }
         fetchData();
     }, [])
+
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>

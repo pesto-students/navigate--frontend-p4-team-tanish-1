@@ -5,7 +5,7 @@ import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
 import MyCard from "../../../Components/Dashboard/profile-card.js";
 import AlumniCard from "../../../Components/Dashboard/alumni-card.js";
 import UpcomingSession from "../../../Components/Dashboard/upcoming-session.js";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { suggestedAlumni } from "../../../API.js";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ export function ListAlumni({alumniData}){
 }
 
 export default function Dashboard() {
+    const navigate = useNavigate()
     const {name, headline, interest, _id} = useSelector((state) => {
         return state.user.userData
     });
@@ -33,9 +34,13 @@ export default function Dashboard() {
             const body = {
                 studentID: _id
             }
-            console.log(body);
-            const response = await axiosPostRequest('/booking/upcoming/student', body);
-            setUpcomingData(response['data']['data']);
+            try{
+                const response = await axiosPostRequest('/booking/upcoming/student', body);
+                setUpcomingData(response['data']['data']);
+            }
+            catch(exception){
+                navigate('/error')
+            }
         }
         fetchData();
     }, [])
