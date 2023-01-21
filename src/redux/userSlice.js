@@ -57,5 +57,5 @@ export const fetchAlumniData = createAsyncThunk('user/fetchAlumniData', (alumniI
     return getAlumni(alumniID)
 })
 
-export const {USER_LOGIN, USER_LOGOUT, UPDATE_USER_PROFILE, UPDATE_PROFILE_PHOTO, DUMMY_CREDENTIAL } = userSlice.actions;
+export const {USER_LOGIN, USER_LOGOUT, UPDATE_USER_PROFILE, DUMMY_CREDENTIAL } = userSlice.actions;
 export default userSlice.reducer;

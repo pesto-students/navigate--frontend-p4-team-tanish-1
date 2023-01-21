@@ -8,7 +8,6 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import cardArticle from "../../Assets/profile.jpg";
 import { Button } from "@chakra-ui/button";
 import { FaVideo } from "react-icons/fa/index.js";
 import { getMeetingCredential } from "../../API";
@@ -20,7 +19,6 @@ import userPhoto from "../../Assets/user-placeholder.png";
 async function joinMeeting(data, user, helper) {
     const {navigate} = helper;
     const { meetingID, _id } = data
-    const name = user.name
     if(meetingID !== undefined & _id !== null){
         const response = await getMeetingCredential(_id, user);
         const meetingAccessToken = response.data.data.token;
@@ -38,7 +36,7 @@ function UpcomingData({data, navigate}){
     const guestName = isAlumni ? data.student.name : data.alumni.name;
     const photo = isAlumni ? data.student.image : data.alumni.image;
     const userData = useSelector((state) => state.user.userData);
-    const user = {userID: userData._id, name: userData.name}
+    const user = {userID: userData._id, name: userData.name, image: userData.image}
     const [isDisabled, setIsDisabled] = useState(true)
     useEffect(() => {
         function checkTime(){
@@ -94,6 +92,7 @@ function UpcomingData({data, navigate}){
                 boxSize={["", "25vw", "20vh"]}
                 display={["none", "flex", "flex"]}
                 alt=""
+                objectFit={"cover"}
                 borderRadius="0.7em 0.7em 0em 0em"
             />
         </Flex>

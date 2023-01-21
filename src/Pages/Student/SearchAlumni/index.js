@@ -1,19 +1,32 @@
-import { Flex, Box, Input, Button, Menu, MenuButton, MenuList, MenuItem, Switch, HStack, Checkbox, CheckboxGroup } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Flex, Box, Input, useToast } from "@chakra-ui/react";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
-import AlumniCard from "../../../Components/Dashboard/alumni-card.js";
 import { listAlumni } from "../../../API.js";
 import { useEffect, useState } from "react";
 import { NoSearchResult } from "../../../Components/NoData.js";
 import { ListAlumni } from "../Dashboard/index.js";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchAlumni(){
+    const navigate = useNavigate();
+    const toast = useToast();
     const [alumniData, setAlumniData] = useState([])
     const [query, setQuery] = useState("")
     useEffect(() => {
         async function fetchAlumniList(){
-            const response = await listAlumni(query)
+            const response = await listAlumni(query);
+            if(response === 401){
+                navigate('/signout')
+                return toast({
+                    title : "Session Timeout",
+                    description: "Session expired please login again",
+                    variant: "top-accent",
+                    status: "info",
+                    duration: 5000,
+                    position: "top",
+                    isClosable: true,
+                })
+            }
             setAlumniData(response['data'])
         } fetchAlumniList();
     }, [query])
@@ -31,26 +44,6 @@ export default function SearchAlumni(){
                         variant="form"
                         onChange={e => setQuery(e.target.value)}
                     />
-                    <Menu>
-                    {({ isOpen }) => (
-                        <div>
-                        <MenuButton isActive={isOpen} as={Button} variant={"filter"} rightIcon={<ChevronDownIcon />}>
-                        Filter
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>Unpaid only<Switch ml={"1vw"} colorScheme={"orange"}/></MenuItem>
-                            <MenuItem>
-                                <CheckboxGroup name={"Interests"}>
-                                    <Flex direction={"column"}>
-                                        <Checkbox>Game developer</Checkbox>
-                                        <Checkbox>Artificial Intelligence</Checkbox>
-                                    </Flex>
-                                </CheckboxGroup>
-                            </MenuItem>
-                        </MenuList>
-                        </div>
-                    )}
-                    </Menu>
                 </Flex>
                 {alumniData.length !== 0 ?
                     <Flex direction={["row"]} wrap="wrap" shrink={0} gap="2vh" justifyContent={["space-evenly"]}>

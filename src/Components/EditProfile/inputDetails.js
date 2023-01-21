@@ -5,10 +5,14 @@ import {
     Input,
     Textarea,
     Select,
+    useToast,
+    Button
 } from "@chakra-ui/react";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../apiHelper";
-import { UPDATE_PROFILE_PHOTO } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+import { useRef } from "react";
+
 const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png']
 
 function CustomInput({ register, id, placeholder, val, type = "text" }) {
@@ -26,17 +30,35 @@ function CustomInput({ register, id, placeholder, val, type = "text" }) {
 }
 
 export default function InputForm({ register, data }) {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userData = useSelector((state) => state.user)
+    const {_id } = userData.userData
+    const toast = useToast();
+    
+    const hiddenFileInput = useRef(null);
+    const handleClick = event => {
+        hiddenFileInput.current.click();
+    };
     const handleImageUpload = async (event) => {
         event.preventDefault();
         let formData = new FormData();
         let file = event.target.files[0];
         formData.append('file', file);
+        formData.append('userID', _id)
         try{
             const imageData = await axiosPostRequest('/uploadfile', formData, {'Content-Type': 'multipart/form-data'})
-            dispatch(UPDATE_PROFILE_PHOTO({
-                imageKey: imageData.data.imageKey
-            }))
+            if(imageData.response.status === 401){
+                navigate('/signout')
+                return toast({
+                    title : "Session Timeout",
+                    description: "Session expired please login again",
+                    variant: "top-accent",
+                    status: "info",
+                    duration: 5000,
+                    position: "top",
+                    isClosable: true,
+                })
+            }
         }
         catch(error){
             console.log(error.response);
@@ -45,7 +67,8 @@ export default function InputForm({ register, data }) {
 
     return (
         <>  
-            <Input type={"file"} onChange={handleImageUpload}/>
+            <Button onClick={handleClick} >Edit Image</Button>
+            <Input type={"file"} ref={hiddenFileInput} onChange={handleImageUpload} display={"none"}/>
             <Flex
                 justify="space-between"
                 direction={["column", "column", "row"]}

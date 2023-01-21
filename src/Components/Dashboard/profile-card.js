@@ -16,7 +16,8 @@ function MyCard({name, headline, image}) {
                         src={image !== null ? image : userPhoto }
                         alt="Your profile photo"
                         borderRadius="full"
-                        h="20vh"
+                        boxSize={"20vh"}
+                        objectFit={"cover"}
                     />
                     <Stack
                         mt="6"

@@ -21,6 +21,7 @@ function alumniCard({data}) {
                 src={data.image === null ? user : data.image}
                 alt="Alumni photo"
                 borderRadius="0.7em 0.7em 0em 0em"
+                objectFit={"cover"}
             />
             <CardBody>
                 <Flex direction="column" align="center">
