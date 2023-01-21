@@ -24,6 +24,18 @@ async function bookSession(values, alumniDetails, id, helpers) {
         amount: alumniDetails.pricing
     }
     const createResponse = await axiosPostRequest('/booking/create', body);
+    if(createResponse.status === 401){
+        navigate('/signout')
+        return toast({
+            title : "Session Timeout",
+            description: "Session expired please login again",
+            variant: "top-accent",
+            status: "info",
+            duration: 5000,
+            position: "top",
+            isClosable: true,
+        })
+    }
     const isPaymentRequired = createResponse.data.paymentRequired;
 
     if(isPaymentRequired){
@@ -45,7 +57,19 @@ async function bookSession(values, alumniDetails, id, helpers) {
                     sessionID: createResponse.data.data._id
                 }
                 const verifyResponse = await axiosPostRequest('/payment/verify', body);
-                if(verifyResponse.data.isVerified){
+                if(verifyResponse.status === 401){
+                    navigate('/signout')
+                    return toast({
+                        title : "Session Timeout",
+                        description: "Session expired please login again",
+                        variant: "top-accent",
+                        status: "info",
+                        duration: 5000,
+                        position: "top",
+                        isClosable: true,
+                    })
+                }
+                else if(verifyResponse.data.isVerified){
                     navigate('/student/session-confirm', {state: createResponse.data})
                     return toast({ 
                         title: "Booking successful",
@@ -59,12 +83,16 @@ async function bookSession(values, alumniDetails, id, helpers) {
                 }
                 else{
                     navigate('/error')
+                    return toast({
+                        title : "Server Error",
+                        description: "Something went wrong",
+                        variant: "top-accent",
+                        status: "error",
+                        duration: 5000,
+                        position: "top",
+                        isClosable: true,
+                    })
                 }
-            },
-            prefill: {
-                "name": "Chand",
-                "email": "test.kumar@example.com",
-                "contact": "9999999999"
             },
             notes: {
                 "address": "Navigate Corporate Office"

@@ -22,6 +22,18 @@ import { fetchUserData } from "../../../redux/userSlice.js";
 async function updateStudent(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;
     const response = await axiosPostRequest(`/student/update/${userID}`, values);
+    if(response.status === 401){
+        navigate('/signout')
+        return toast({
+            title : "Session Timeout",
+            description: "Session expired please login again",
+            variant: "top-accent",
+            status: "info",
+            duration: 5000,
+            position: "top",
+            isClosable: true,
+        })
+    }
     navigate("/student/dashboard");
     dispatch(UPDATE_USER_PROFILE({
         userData: values
