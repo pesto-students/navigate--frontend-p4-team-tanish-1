@@ -8,7 +8,8 @@ export const userSlice = createSlice({
         access: "",
         userData: {},
         firebaseID: "",
-        error: ""
+        error: "",
+        dummyEmail: "pestostudent@gmail.com"
     },
     reducers: {
         USER_LOGIN: (state, action) => {
@@ -24,7 +25,6 @@ export const userSlice = createSlice({
             state.firebaseID = null;
         },
         UPDATE_USER_PROFILE: (state, action) => {
-            console.log(action.payload);
             state.userData = action.payload.userData;
         }
     },
@@ -57,5 +57,5 @@ export const fetchAlumniData = createAsyncThunk('user/fetchAlumniData', (alumniI
     return getAlumni(alumniID)
 })
 
-export const {USER_LOGIN, USER_LOGOUT, UPDATE_USER_PROFILE } = userSlice.actions;
+export const {USER_LOGIN, USER_LOGOUT, UPDATE_USER_PROFILE, UPDATE_PROFILE_PHOTO, DUMMY_CREDENTIAL } = userSlice.actions;
 export default userSlice.reducer;

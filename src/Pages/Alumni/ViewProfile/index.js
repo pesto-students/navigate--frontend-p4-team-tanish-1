@@ -14,7 +14,7 @@ export default function AlumniViewProfile(){
     const userData = useSelector((state) => {
         return state.user.userData
     });
-    const {_id, name} = userData
+    const {_id, name, image} = userData
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAlumniData(_id));
@@ -25,7 +25,7 @@ export default function AlumniViewProfile(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={name} />
+                <Hero fullName={name} photo={image} />
                 <Button as={NavLink} to="/alumni/edit-profile" float="right" variant="edit"><Icon as={EditIcon} variant="profile"/>Edit</Button>
                     <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>
                         <ViewDetail data={userData}/>                    

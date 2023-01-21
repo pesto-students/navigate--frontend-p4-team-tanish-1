@@ -13,8 +13,14 @@ import {
 import logoSQ from "../../../Assets/logos/logo-SQ.png";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import userPhoto from "../../../Assets/user-placeholder.png";
 
 export default function Navbar() {
+    const { image, name } = useSelector((state) => {
+        return state.user.userData
+    });
+    
     return (
         <Box w="100%" h="8vh" color="primary" bg="dark">
             <Flex align="center" h="100%" gap="4px" mx="6px" justify="space-between">
@@ -29,8 +35,8 @@ export default function Navbar() {
                                 <Image
                                     borderRadius="full"
                                     boxSize="6vh"
-                                    src="https://bit.ly/dan-abramov"
-                                    alt="Dan Abramov"
+                                    src={image !== null ? image : userPhoto}
+                                    alt={name}
                                 />
                                 <ChevronDownIcon />
                             </HStack>

@@ -15,6 +15,7 @@ import { getMeetingCredential } from "../../API";
 import { useNavigate } from "react-router-dom";
 import { NoUpcoming } from "../NoData";
 import { useSelector } from "react-redux";
+import userPhoto from "../../Assets/user-placeholder.png";
 
 async function joinMeeting(data, user, helper) {
     const {navigate} = helper;
@@ -35,6 +36,10 @@ async function joinMeeting(data, user, helper) {
 }
 
 function UpcomingData({data, navigate}){
+    const isAlumni = data.alumni.name === undefined
+    const guestName = isAlumni ? data.student.name : data.alumni.name;
+    const photo = isAlumni ? data.student.image : data.alumni.image;
+    console.log("photo", photo);
     const userData = useSelector((state) => state.user.userData);
     const user = {userID: userData._id, name: userData.name}
     const [isDisabled, setIsDisabled] = useState(true)
@@ -62,7 +67,7 @@ function UpcomingData({data, navigate}){
                         Upcoming Session
                     </Text>
                     <Text fontSize="1.1em" fontWeight="500" color="secondary">
-                        Join upcoming session with {data.alumni.name ? data.alumni.name : data.student.name}
+                        Join upcoming session with {guestName}
                     </Text>
                     <Text fontSize="0.9em" mb="2em">
                         <b>Agenda</b> - {data.agenda}
@@ -87,7 +92,7 @@ function UpcomingData({data, navigate}){
                 <Text color={"red.500"} display={isDisabled ? "flex" :"none"}>You will be able to join at scheduled date and time</Text>
             </Flex>
             <Image
-                src={cardArticle}
+                src={photo !== null ? photo : userPhoto}
                 my="auto"
                 mx="0.5em"
                 boxSize={["", "25vw", "20vh"]}

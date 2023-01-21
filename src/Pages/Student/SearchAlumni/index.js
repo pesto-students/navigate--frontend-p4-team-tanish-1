@@ -1,4 +1,4 @@
-import { Flex, Box, Input, Button, Menu, MenuButton, MenuList, MenuItem, Switch, HStack } from "@chakra-ui/react";
+import { Flex, Box, Input, Button, Menu, MenuButton, MenuList, MenuItem, Switch, HStack, Checkbox, CheckboxGroup } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
@@ -10,13 +10,15 @@ import { ListAlumni } from "../Dashboard/index.js";
 
 export default function SearchAlumni(){
     const [alumniData, setAlumniData] = useState([])
+    const [query, setQuery] = useState("")
     useEffect(() => {
+        console.log(query);
         async function fetchAlumniList(){
-            const response = await listAlumni()
+            const response = await listAlumni(query)
             console.log(response);
             setAlumniData(response['data'])
         } fetchAlumniList();
-    }, [])
+    }, [query])
     return (
         <Flex direction={["column", "column", "row"]}>
             <Sidebar/>
@@ -29,8 +31,8 @@ export default function SearchAlumni(){
                         placeholder={"Search Alumni"}
                         type={"text"}
                         variant="form"
+                        onChange={e => setQuery(e.target.value)}
                     />
-                    <Button>Search</Button>
                     <Menu>
                     {({ isOpen }) => (
                         <div>
@@ -38,8 +40,15 @@ export default function SearchAlumni(){
                         Filter
                         </MenuButton>
                         <MenuList>
-                        <MenuItem>Unpaid only<Switch ml={"1vw"} colorScheme={"orange"}/></MenuItem>
-                        <MenuItem>Interests</MenuItem>
+                            <MenuItem>Unpaid only<Switch ml={"1vw"} colorScheme={"orange"}/></MenuItem>
+                            <MenuItem>
+                                <CheckboxGroup name={"Interests"}>
+                                    <Flex direction={"column"}>
+                                        <Checkbox>Game developer</Checkbox>
+                                        <Checkbox>Artificial Intelligence</Checkbox>
+                                    </Flex>
+                                </CheckboxGroup>
+                            </MenuItem>
                         </MenuList>
                         </div>
                     )}

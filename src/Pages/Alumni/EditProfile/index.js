@@ -31,8 +31,8 @@ async function updateAlumni(values, userID, helpers) {
 }
 
 export default function AlumniEditProfile(){
-    const userData = useSelector((state) => state.user.userData)
-    const {_id, name} = userData
+    const userData = useSelector((state) => state.user)
+    const {_id, name, image} = userData.userData
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAlumniData(_id));
@@ -50,7 +50,7 @@ export default function AlumniEditProfile(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={name}/>
+                <Hero fullName={name} photo={image}/>
                 <Box pt="16vh" mb="5em">
                     <form
                         onSubmit={handleSubmit((values) =>

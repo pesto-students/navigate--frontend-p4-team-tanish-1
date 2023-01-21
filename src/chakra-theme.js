@@ -64,6 +64,14 @@ const theme = extendTheme({
                 filter: {
                     bg: "dark",
                     color: "primary"
+                },
+                dashboard: {
+                    bg: "none",
+                    color: "secondary",
+                    _hover: {
+                        color: "white",
+                        bg: "dark",
+                    }
                 }
             },
             defaultProps: {

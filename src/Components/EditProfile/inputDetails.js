@@ -6,6 +6,10 @@ import {
     Textarea,
     Select,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
+import { axiosPostRequest } from "../../apiHelper";
+import { UPDATE_PROFILE_PHOTO } from "../../redux/userSlice";
+const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png']
 
 function CustomInput({ register, id, placeholder, val, type = "text" }) {
     return (
@@ -22,8 +26,28 @@ function CustomInput({ register, id, placeholder, val, type = "text" }) {
 }
 
 export default function InputForm({ register, data }) {
+    const dispatch = useDispatch();
+    const handleImageUpload = async (event) => {
+        event.preventDefault();
+        let formData = new FormData();
+        let file = event.target.files[0];
+        formData.append('file', file);
+        console.log(file);
+        try{
+            const imageData = await axiosPostRequest('/uploadfile', formData, {'Content-Type': 'multipart/form-data'})
+            console.log(imageData);
+            dispatch(UPDATE_PROFILE_PHOTO({
+                imageKey: imageData.data.imageKey
+            }))
+        }
+        catch(error){
+            console.log(error.response);
+        }
+    }
+
     return (
-        <>
+        <>  
+            <Input type={"file"} onChange={handleImageUpload}/>
             <Flex
                 justify="space-between"
                 direction={["column", "column", "row"]}

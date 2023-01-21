@@ -37,7 +37,7 @@ async function updateStudent(values, userID, helpers) {
 
 export default function Profile() {
     const userData = useSelector((state) => state.user.userData)
-    const {_id, name} = userData
+    const {_id, name, image} = userData
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchUserData(_id));
@@ -56,7 +56,7 @@ export default function Profile() {
             <Sidebar />
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={name}/>
+                <Hero fullName={name} photo={image}/>
                 <Box pt="16vh">
                     <form
                         onSubmit={handleSubmit((values) =>

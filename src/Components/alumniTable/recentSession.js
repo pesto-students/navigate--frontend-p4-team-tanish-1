@@ -13,37 +13,38 @@ import {
     TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
-import ashlynn from "../../Assets/profile.jpg";
+import userPhoto from "../../Assets/user-placeholder.png"
 import {NoSessionToday} from "../NoData.js"
 
-function ProfileName(){
+export function ProfileName({name, image}){
     return (
         <Flex align="center" justifyContent={"space-evenly"} gap="1vw">
             <Image
-                src={ashlynn}
+                src={image !== null ? image : userPhoto}
                 width="2em"
                 borderRadius={"full"}
             />
-            <Text>Ashlynn Kenter</Text>
+            <Text>{name}</Text>
         </Flex>
     )
 }
 
-function TableRecord(){
+export function TableRecord({data}){
+    console.log(data);
     return (
         <Tr>
             <Td>
-                <ProfileName />
+                <ProfileName name={data.student.name} image={data.student.image}/>
             </Td>
-            <Td textAlign={"center"}>Software & Technology</Td>
-            <Td textAlign={"center"} color="primary">400 Rs</Td>
-            <Td textAlign={"center"}>6:30 PM</Td>
+            <Td textAlign={"center"}>{data.student.interest}</Td>
+            <Td textAlign={"center"} color="primary">{data.amount} Rs</Td>
+            <Td textAlign={"center"}>{data.from}</Td>
         </Tr>
     )
 }
 
 function Session({ data }) {
-    console.log(data);
+    console.log("--->", data.length);
     return (
         <Box backgroundColor="white" mb={"7vh"}>
             <Flex p="2vh" justify="space-between" mb="1vh">
@@ -51,7 +52,7 @@ function Session({ data }) {
                     Session Scheduled Today
                 </Heading>
             </Flex>
-            {data ? <TableContainer alignContent={"center"}>
+            {data.length !== 0 ? <TableContainer alignContent={"center"}>
                 <Table>
                     <Thead>
                         <Tr color={"primary"}>
@@ -62,8 +63,13 @@ function Session({ data }) {
                         </Tr>
                     </Thead>
                     <Tbody>
-                        <TableRecord />
-                        <TableRecord />
+                        {
+                            data.map((session) => {
+                                return (
+                                    <TableRecord data={session}/>
+                                )
+                            })
+                        }
                     </Tbody>
                 </Table>
             </TableContainer> : <NoSessionToday />}

@@ -5,7 +5,7 @@ import signinImg from "../../../Assets/signin-bg.jpg"
 
 export default function SignInPage(){
     return (
-        <Box h="100%">
+        <Box h="100vh" overflow={"hidden"}>
             <Navbar />
             <Flex h="100%">
                 <SignInForm />

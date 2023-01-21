@@ -14,7 +14,7 @@ async function getAccessToken(){
     const TTL = data.exp - Math.ceil(Date.now() / 1000);
     console.log(TTL);
     if(TTL < 0){
-        console.log("redirect to signout, token expired");
+        redirect('/signout');
     }
     return accessToken
 }
@@ -29,15 +29,16 @@ async function axiosGetRequest(path){
     return response
 }
 
-async function axiosPostRequest(path, body){
+async function axiosPostRequest(path, body, options = {}){
     const accessToken = await getAccessToken()
-    const data = await client.post(path, body,{
+    const response = await client.post(path, body,{
         headers: {
             Authorization : `Bearer ${accessToken}`,
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            ...options
         }
     })
-    return data
+    return response
 }
 
 export {axiosGetRequest, axiosPostRequest}

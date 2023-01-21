@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import React from "react";
-import first from "../../Assets/profile.jpg";
+import user from "../../Assets/user-placeholder.png";
 import { Link } from "react-router-dom";
 
 function alumniCard({data}) {
@@ -18,7 +18,7 @@ function alumniCard({data}) {
     return (
         <Card bg="white" as={Link} to={link} width={["40vh", "45vh"]} borderRadius="0.7em">
             <Image
-                src={first}
+                src={data.image === null ? user : data.image}
                 alt="Alumni photo"
                 borderRadius="0.7em 0.7em 0em 0em"
             />

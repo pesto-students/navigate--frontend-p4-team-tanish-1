@@ -22,7 +22,7 @@ export function ListAlumni({alumniData}){
 
 export default function Dashboard() {
     const navigate = useNavigate()
-    const {name, headline, interest, _id} = useSelector((state) => {
+    const {name, headline, interest, _id, image} = useSelector((state) => {
         return state.user.userData
     });
 
@@ -59,7 +59,7 @@ export default function Dashboard() {
                 <Navbar />
                 <Box m="2vw" align="center">
                     <Flex direction="row" justify="space-between" mb="7vh">
-                        <MyCard name={name} headline={headline}/>
+                        <MyCard name={name} image={image} headline={headline}/>
                         <UpcomingSession data={upcomingData}/>
                     </Flex>
                     <Heading fontSize="1.4em" color="secondary" mb="4vh">

@@ -5,7 +5,7 @@ import signupImg from "../../../Assets/signup-bg.jpg"
 
 export default function SignUpPage(){
     return (
-        <Box h="100%">
+        <Box h="100vh" overflow={"hidden"}>
             <Navbar />
             <Flex h="100%">
                 <SignUpForm />

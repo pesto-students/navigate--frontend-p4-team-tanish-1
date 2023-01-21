@@ -1,8 +1,8 @@
 import { Flex, Text, Card, CardBody, Image, Stack } from "@chakra-ui/react";
 import React from "react";
-import cover from "../../Assets/profile.jpg";
+import userPhoto from "../../Assets/user-placeholder.png";
 
-function MyCard({name, headline}) {
+function MyCard({name, headline, image}) {
     return (
         <Card
             bg="white"
@@ -13,7 +13,7 @@ function MyCard({name, headline}) {
             <CardBody>
                 <Flex direction="column" align="center">
                     <Image
-                        src={cover}
+                        src={image !== null ? image : userPhoto }
                         alt="Your profile photo"
                         borderRadius="full"
                         h="20vh"

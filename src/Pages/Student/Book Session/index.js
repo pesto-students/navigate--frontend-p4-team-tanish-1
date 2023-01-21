@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 import logo from "../../../Assets/logos/logo-SQ.png";
 
 async function bookSession(values, alumniDetails, id, helpers) {
-    console.log("-------------", alumniDetails)
     const {navigate, toast} = helpers;
     const body = {
         student: id,
@@ -26,7 +25,7 @@ async function bookSession(values, alumniDetails, id, helpers) {
     }
     const createResponse = await axiosPostRequest('/booking/create', body);
     const isPaymentRequired = createResponse.data.paymentRequired;
-    
+
     if(isPaymentRequired){
         const orderID = createResponse.data.order.id;
         const amount = createResponse.data.data.amount;
@@ -42,12 +41,13 @@ async function bookSession(values, alumniDetails, id, helpers) {
                 const body = {
                     payment_id: response.razorpay_payment_id,
                     order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature
+                    razorpay_signature: response.razorpay_signature,
+                    sessionID: createResponse.data.data._id
                 }
                 const verifyResponse = await axiosPostRequest('/payment/verify', body);
                 console.log(verifyResponse);
                 if(verifyResponse.data.isVerified){
-                    navigate('/student/session-confirm', {state: createResponse})
+                    navigate('/student/session-confirm', {state: createResponse.data})
                     return toast({ 
                         title: "Booking successful",
                         description: "Your session with Alumni is scheduled",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import auth from "../../../firebase-config.js";
@@ -15,8 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../../apiHelper.js";
-import { USER_LOGIN } from "../../../redux/userSlice.js";
-import { useDispatch } from "react-redux";
+import { USER_LOGIN, DUMMY_CREDENTIAL } from "../../../redux/userSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 async function loginUser (values, navigate, toast, dispatch) {
     const { email, password, type } = values;
@@ -128,7 +128,7 @@ export default function SignInForm() {
         onClose();
         ResetPassword(email, toast);
     }
-    
+
     return (
         <Box w={["100vw", "100vw", "50vw"]} h="100%" align="center">
             <form onSubmit={handleSubmit((data) => loginUser(data, navigate, toast, dispatch))} method="POST">
@@ -140,6 +140,7 @@ export default function SignInForm() {
                     <FormLabel>Email address</FormLabel>
                     <Input
                         id="email"
+                        value={"pestostudent@gmail.com"}
                         placeholder="Email"
                         type="email" required
                         {...register("email")}
@@ -147,13 +148,14 @@ export default function SignInForm() {
                     <FormLabel>Password</FormLabel>
                     <Input
                         id="password"
+                        defaultValue={"12341234"}
                         placeholder="password"
                         type="password" required
                         {...register("password")}
                     />
                     <Flex mt="2vh" align={"center"}>
                         <FormLabel>Login as</FormLabel>
-                        <RadioGroup id="role" defaultValue="student" name="type">
+                        <RadioGroup id="role" defaultValue={"student"} name="type">
                             <Stack direction="row">
                                 <Radio colorScheme="orange" value="student" {...register("type")}>
                                     Student

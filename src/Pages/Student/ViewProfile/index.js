@@ -25,7 +25,7 @@ export default function ViewProfile(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={userData.name}/>
+                <Hero photo={userData.image} fullName={userData.name}/>
                 <Button as={NavLink} to="/student/edit-profile" float="right" variant="edit"><Icon as={EditIcon} variant="profile"/>Edit</Button>
                 <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}>
                     <ViewDetail data={userData} />
