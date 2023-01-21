@@ -29,7 +29,6 @@ export default function Dashboard(){
                 const today = await axiosPostRequest('/alumni/today/', body);
                 setTodaySession(today['data']['data']);
                 const past = await axiosPostRequest('/alumni/past', body);
-                console.log(past);
                 setPastSession(past['data']['data'])
             }
             catch(exception){

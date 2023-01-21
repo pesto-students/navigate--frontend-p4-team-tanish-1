@@ -12,19 +12,19 @@ async function getAccessToken(){
     const accessToken = await sessionStorage.getItem("accessToken")
     const data = jwtDecode(accessToken)
     const TTL = data.exp - Math.ceil(Date.now() / 1000);
-    console.log(TTL);
     if(TTL < 0){
         redirect('/signout');
     }
     return accessToken
 }
 
-async function axiosGetRequest(path){
+async function axiosGetRequest(path, params = {}){
     const accessToken = await getAccessToken()
     const response = await client.get(path, {
         headers: {
             Authorization : `Bearer ${accessToken}`
-        }
+        },
+        params: params
     });
     return response
 }

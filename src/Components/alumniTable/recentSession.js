@@ -30,7 +30,6 @@ export function ProfileName({name, image}){
 }
 
 export function TableRecord({data}){
-    console.log(data);
     return (
         <Tr>
             <Td>
@@ -44,7 +43,6 @@ export function TableRecord({data}){
 }
 
 function Session({ data }) {
-    console.log("--->", data.length);
     return (
         <Box backgroundColor="white" mb={"7vh"}>
             <Flex p="2vh" justify="space-between" mb="1vh">

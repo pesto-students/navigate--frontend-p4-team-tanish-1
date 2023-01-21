@@ -45,7 +45,6 @@ async function bookSession(values, alumniDetails, id, helpers) {
                     sessionID: createResponse.data.data._id
                 }
                 const verifyResponse = await axiosPostRequest('/payment/verify', body);
-                console.log(verifyResponse);
                 if(verifyResponse.data.isVerified){
                     navigate('/student/session-confirm', {state: createResponse.data})
                     return toast({ 
@@ -81,7 +80,6 @@ async function bookSession(values, alumniDetails, id, helpers) {
         razorPay.open();
     }
     else{
-        console.log(createResponse.data);
         navigate('/student/session-confirm', {state: createResponse.data});
     }
 }
