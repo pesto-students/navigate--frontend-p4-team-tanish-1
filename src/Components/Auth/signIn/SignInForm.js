@@ -68,6 +68,7 @@ async function loginUser (values, navigate, toast, dispatch) {
             variant: "top-accent",
             status: status,
             duration: 5000,
+            position: "top",
             isClosable: true,
         })
     )
@@ -107,6 +108,7 @@ async function ResetPassword(email, toast){
             variant: "top-accent",
             status: status,
             duration: 5000,
+            position: "top",
             isClosable: true,
         })
     )
@@ -140,7 +142,7 @@ export default function SignInForm() {
                     <FormLabel>Email address</FormLabel>
                     <Input
                         id="email"
-                        value={"pestostudent@gmail.com"}
+                        defaultValue={"pestostudent@gmail.com"}
                         placeholder="Email"
                         type="email" required
                         {...register("email")}

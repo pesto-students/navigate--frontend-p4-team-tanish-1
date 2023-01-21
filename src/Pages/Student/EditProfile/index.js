@@ -31,6 +31,7 @@ async function updateStudent(values, userID, helpers) {
         status: "success",
         variant: "top-accent",
         duration: 5000,
+        position: "top",
         isClosable: true,
     });
 }

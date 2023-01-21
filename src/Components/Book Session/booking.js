@@ -5,15 +5,18 @@ import {
     Input,
     Textarea,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { SelectTime } from "../EditProfile/pricingAvailability";
 import { useEffect, useState } from "react";
 import { axiosPostRequest } from "../../apiHelper";
+import { useNavigate } from "react-router";
 
 export default function Booking({ register, data, dateSelector }) {
     const [selectedDate, setSelectedDate] = dateSelector;
     const [startOptions, setStartOptions] = useState();
-    const [endOptions, setendOptions] = useState();
+    const navigate = useNavigate();
+    const toast = useToast();
 
     useEffect(() => {
         async function getOptions(){
@@ -22,8 +25,19 @@ export default function Booking({ register, data, dateSelector }) {
                 date: selectedDate
             }
             const response = await axiosPostRequest('/booking/slots', body)
+            if(response.status === 401){
+                navigate('/signout')
+                return toast({
+                    title : "Session Timeout",
+                    description: "Session expired please login again",
+                    variant: "top-accent",
+                    status: "info",
+                    duration: 5000,
+                    position: "top",
+                    isClosable: true,
+                })
+            }
             setStartOptions(response['data']['data']['from'])
-            setendOptions(response['data']['data']['to'])
         }
         getOptions();
     }, [selectedDate, data._id])

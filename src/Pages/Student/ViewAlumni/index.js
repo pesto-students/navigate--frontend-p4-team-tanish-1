@@ -14,13 +14,10 @@ export default function ViewAlumniProfile(){
     const alumniID = params['id']
     const [alumniData, setAlumniData] = useState({})
     const navigate = useNavigate();
-    const [pricing, setPricing] = useState(0)
-    const [availability, setAvailability] = useState({})
     console.log(alumniID);
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAlumni(alumniID);
-            console.log(response);
             setAlumniData(response['data'])
         } 
         fetchData();
@@ -30,7 +27,7 @@ export default function ViewAlumniProfile(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={alumniData.name} />
+                <Hero fullName={alumniData.name} photo={alumniData.image}/>
                 <Button onClick={() => navigate(-1)} float="left" variant="edit"><Icon as={ArrowBackIcon} variant="profile"/>Back</Button>
                 <Box mt="12vh" p="2vw" w="100%" fontSize={["14px", "14px", "16px"]}> 
                     <ViewAlumniDetail data={alumniData} />

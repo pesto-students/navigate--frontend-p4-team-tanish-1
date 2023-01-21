@@ -83,6 +83,7 @@ async function CreateUser(values, navigate, toast, dispatch) {
                 variant: "top-accent",
                 status: status,
                 duration: 5000,
+                position: "top",
                 isClosable: true,
             }
         )

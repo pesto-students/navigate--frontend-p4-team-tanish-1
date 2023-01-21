@@ -54,6 +54,7 @@ async function bookSession(values, alumniDetails, id, helpers) {
                         status: "success",
                         variant: "top-accent",
                         duration: 5000,
+                        position: "top",
                         isClosable: true,
                     })
                 }
@@ -94,7 +95,6 @@ export default function Booking(){
     useEffect(() => {
         async function fetchAlumni(){
             const response = await getAlumni(alumniID)
-            console.log(response);
             setalumniDetails(response['data'])
         } fetchAlumni();
     }, [])
@@ -112,7 +112,7 @@ export default function Booking(){
             <Sidebar/>
             <Box bg="default-bg" w={["100%", "100%", "80%"]}>
                 <Navbar />
-                <Hero fullName={alumniDetails.name}/>
+                <Hero fullName={alumniDetails.name} photo={alumniDetails.image}/>
                 
                 <Box pt="16vh">
                 <form onSubmit={handleSubmit((values) => bookSession(values, alumniDetails, _id, {navigate, toast}))}>
