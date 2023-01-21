@@ -15,7 +15,6 @@ import AlumniPricingEdit from "../../../Components/EditProfile/pricingAvailabili
 
 async function updateAlumni(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;
-    console.log(values);
     const response = await axiosPostRequest(`/alumni/update/${userID}`, values);
     navigate("/alumni/dashboard");
     dispatch(UPDATE_USER_PROFILE({

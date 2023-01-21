@@ -14,7 +14,6 @@ export default function ViewAlumniProfile(){
     const alumniID = params['id']
     const [alumniData, setAlumniData] = useState({})
     const navigate = useNavigate();
-    console.log(alumniID);
     useEffect(() => {
         const fetchData = async () => {
             const response = await getAlumni(alumniID);

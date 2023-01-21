@@ -28,7 +28,6 @@ export default function Dashboard() {
 
     const [upcomingData, setUpcomingData] = useState();
     const [alumniData, setAlumniData] = useState([])
-    console.log(alumniData);
     useEffect(() => {
         const fetchData = async () => {
             const body = {
@@ -48,7 +47,6 @@ export default function Dashboard() {
     useEffect(() => {
         async function suggestedAlumniList(){
             const response = await suggestedAlumni(interest[0])
-            console.log(response);
             setAlumniData(response['data'])
         } suggestedAlumniList();
     }, [interest])

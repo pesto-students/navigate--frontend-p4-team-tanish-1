@@ -32,10 +32,10 @@ async function getAlumni(alumniID){
 
 async function listAlumni(query){
     try{
-        const body = {
-            query: query
+        const params = {
+            q: query
         }
-        const response = await axiosPostRequest(`/alumni/get/`, body);
+        const response = await axiosGetRequest(`/alumni/get/`, params);
         return response['data']
     }
     catch(error){

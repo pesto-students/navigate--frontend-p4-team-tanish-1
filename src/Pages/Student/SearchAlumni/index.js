@@ -12,10 +12,8 @@ export default function SearchAlumni(){
     const [alumniData, setAlumniData] = useState([])
     const [query, setQuery] = useState("")
     useEffect(() => {
-        console.log(query);
         async function fetchAlumniList(){
             const response = await listAlumni(query)
-            console.log(response);
             setAlumniData(response['data'])
         } fetchAlumniList();
     }, [query])

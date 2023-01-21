@@ -32,10 +32,8 @@ export default function InputForm({ register, data }) {
         let formData = new FormData();
         let file = event.target.files[0];
         formData.append('file', file);
-        console.log(file);
         try{
             const imageData = await axiosPostRequest('/uploadfile', formData, {'Content-Type': 'multipart/form-data'})
-            console.log(imageData);
             dispatch(UPDATE_PROFILE_PHOTO({
                 imageKey: imageData.data.imageKey
             }))
