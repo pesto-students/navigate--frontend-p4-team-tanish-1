@@ -11,8 +11,8 @@ async function getStudent(studentID){
         return response['data']
     }
     catch(error){
-        console.log(error.response.status);
-        return error.response.status;
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -27,8 +27,8 @@ async function getAlumni(alumniID){
         return response['data']
     }
     catch(error){
-        console.log(error.response.status);
-        return error.response.status;
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -41,8 +41,8 @@ async function listAlumni(query){
         return response['data']
     }
     catch(error){
-        console.log(error.response.status);
-        return error.response.status;
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -55,8 +55,8 @@ async function suggestedAlumni(interest){
         return response['data']
     }
     catch(error){
-        console.log(error.response.status);
-        return error.response.status;
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -72,8 +72,8 @@ async function getMeetingCredential(_id, username){
         return response['data']
     }
     catch(error){
-        console.log(error.response.status);
-        return error.response.status;
+        console.log(error.status);
+        return error.status;
     }
 }
 
