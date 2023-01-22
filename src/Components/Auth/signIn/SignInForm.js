@@ -48,7 +48,7 @@ async function loginUser (values, navigate, toast, dispatch) {
         status = "error"
         title = "Authentication Failed"
         message = "Something went wrong"
-        if(error.response.status === 404){
+        if(error.status === 404){
             title = "No user found"
             message = "Try to signup or choose correct role"
         }
