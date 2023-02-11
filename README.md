@@ -43,9 +43,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 # Technology Stack
 - [React JS](https://reactjs.org/)
-- [Chakra UI](https://ant.design/)
+- [Chakra UI](https://chakra-ui.com/)
 - [Redux toolkit](https://redux-toolkit.js.org/)
-- [Axios](https://axios-http.com/docs/intro)
+- [Axios](https://axios-http.com/)
 - [Sentry](https://sentry.io/)
 - [Netlify](https://www.netlify.com/)
 
