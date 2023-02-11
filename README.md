@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+# Navigate Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Navigate** is a web-based platform that connects students with industry professionals. The platform enables students to network with professionals and seek guidance and support as they navigate their academic and professional careers. Professionals, in turn, can offer their insights, experience, and connections to help students achieve their goals.
 
-## Available Scripts
+**With Navigate, students can:**
+- Discover and connect with industry professionals from their desired fields
+- Explore professional profiles and reach out for advice and guidance
+- Participate in virtual meeting and connect with professionals in real-time
 
-In the project directory, you can run:
+Navigate is designed to foster meaningful connections and support between students and industry professionals. Whether you're a student looking to build your network, or a professional looking to give back, Navigate provides a platform to make it happen.
 
-### `npm start`
+## Table of content
+1. [Demo](#demo)
+2. [Installation](#install)
+3. [Tech Stack](#tech)
+4. [Authors](#author)
+5. [License](#license)
 
-Runs the app in the development mode.\
+# Demo
+[Live Demo](https://pesto-navigate.netlify.app/) \
+To start using Navigate, simply sign up for an account on our website. Once you've created your profile, you can start exploring professional profiles and connecting with those who are relevant to your interests and goals.
+
+Test Credentials:
+
+- For Student
+  - Email: pestostudent@gmail.com
+  - Password: 12341234
+- For Alumni
+  - Email: johndoe@yopmail.com
+  - Password: 12341234
+
+# Install
+- Fork or directly clone this repository to your local machine
+- Use the `npm install` command to install dependencies
+- Once the dependencies are finished installing, use the `npm start` command inside the root directory to open the app in your local browser of choice
+
+
+## Features
+- Simple and intuitive user interface
+- Professional profiles and search functionality
+- Schedule a call and connect in platform itself
+- Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+# Technology Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Chakra UI](https://ant.design/)
+- [Redux toolkit](https://redux-toolkit.js.org/)
+- [Axios](https://axios-http.com/docs/intro)
+- [Sentry](https://sentry.io/)
 
-### `npm run build`
+# Author
+[Chand Bud](https://github.com/chandbud5/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# License
+[MIT](https://opensource.org/licenses/MIT)
