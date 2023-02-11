@@ -34,7 +34,6 @@ Test Credentials:
 - Use the `npm install` command to install dependencies
 - Once the dependencies are finished installing, use the `npm start` command inside the root directory to open the app in your local browser of choice
 
-
 ## Features
 - Simple and intuitive user interface
 - Professional profiles and search functionality
@@ -42,13 +41,13 @@ Test Credentials:
 - Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-
 # Technology Stack
-
+- [React JS](https://reactjs.org/)
 - [Chakra UI](https://ant.design/)
 - [Redux toolkit](https://redux-toolkit.js.org/)
 - [Axios](https://axios-http.com/docs/intro)
 - [Sentry](https://sentry.io/)
+- [Netlify](https://www.netlify.com/)
 
 # Author
 [Chand Bud](https://github.com/chandbud5/)
