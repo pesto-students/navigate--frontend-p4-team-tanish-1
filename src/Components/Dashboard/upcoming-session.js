@@ -8,7 +8,6 @@ import {
     Icon,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import cardArticle from "../../Assets/profile.jpg";
 import { Button } from "@chakra-ui/button";
 import { FaVideo } from "react-icons/fa/index.js";
 import { getMeetingCredential } from "../../API";
@@ -20,11 +19,8 @@ import userPhoto from "../../Assets/user-placeholder.png";
 async function joinMeeting(data, user, helper) {
     const {navigate} = helper;
     const { meetingID, _id } = data
-    const name = user.name
-    console.log("---> ", name);
     if(meetingID !== undefined & _id !== null){
         const response = await getMeetingCredential(_id, user);
-        console.log(response.data);
         const meetingAccessToken = response.data.data.token;
         await sessionStorage.setItem("meetingToken", meetingAccessToken);
         navigate('/join')
@@ -39,16 +35,14 @@ function UpcomingData({data, navigate}){
     const isAlumni = data.alumni.name === undefined
     const guestName = isAlumni ? data.student.name : data.alumni.name;
     const photo = isAlumni ? data.student.image : data.alumni.image;
-    console.log("photo", photo);
     const userData = useSelector((state) => state.user.userData);
-    const user = {userID: userData._id, name: userData.name}
+    const user = {userID: userData._id, name: userData.name, image: userData.image}
     const [isDisabled, setIsDisabled] = useState(true)
     useEffect(() => {
         function checkTime(){
             let current = new Date();
             let scheduled = new Date(`${data.date}T${data.from}`)
             setIsDisabled(current < scheduled)
-            console.log(current < scheduled);
         }
         const interval = setInterval(() => checkTime(), 5000)
         return () => {
@@ -98,6 +92,7 @@ function UpcomingData({data, navigate}){
                 boxSize={["", "25vw", "20vh"]}
                 display={["none", "flex", "flex"]}
                 alt=""
+                objectFit={"cover"}
                 borderRadius="0.7em 0.7em 0em 0em"
             />
         </Flex>

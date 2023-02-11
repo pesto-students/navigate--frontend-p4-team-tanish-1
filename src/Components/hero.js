@@ -3,7 +3,6 @@ import heroBg from "../Assets/hero-bg-crop.jpg";
 import profile from "../Assets/user-placeholder.png";
 
 export default function Hero({fullName, photo}){
-    console.log(photo);
     return(
         <Box h="24vh" bg={`url(${heroBg})`} backgroundPosition="center" backgroundSize={'100%'}>
             <Flex align="center" direction="column">

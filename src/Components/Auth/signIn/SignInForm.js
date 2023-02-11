@@ -30,7 +30,6 @@ async function loginUser (values, navigate, toast, dispatch) {
         const user = userCredential.user;
         const userID = user.uid;
         const token = userCredential.user.accessToken;
-        console.log(user);
         await sessionStorage.setItem("accessToken", token);
         const response = await axiosPostRequest(`/${type}/find/`, {});
         dispatch(
@@ -49,7 +48,11 @@ async function loginUser (values, navigate, toast, dispatch) {
         status = "error"
         title = "Authentication Failed"
         message = "Something went wrong"
-        if(errorCode === "auth/wrong-password"){
+        if(error.status === 404){
+            title = "No user found"
+            message = "Try to signup or choose correct role"
+        }
+        else if(errorCode === "auth/wrong-password"){
             message = "Incorrect password"
         }
         else if(errorCode === "auth/user-not-found"){

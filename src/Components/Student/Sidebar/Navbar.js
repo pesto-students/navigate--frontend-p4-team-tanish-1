@@ -37,6 +37,7 @@ export default function Navbar() {
                                     boxSize="6vh"
                                     src={image !== null ? image : userPhoto}
                                     alt={name}
+                                    objectFit={"cover"}
                                 />
                                 <ChevronDownIcon />
                             </HStack>

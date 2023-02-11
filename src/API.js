@@ -5,13 +5,14 @@ async function getStudent(studentID){
         if(studentID===undefined || studentID === "")
             return {
                 "status": "400",
-                "message": "Unauthorized access"
+                "message": "Bad Request"
             }
         const response = await axiosGetRequest(`/student/get/${studentID}`)
         return response['data']
     }
     catch(error){
-        console.log(error);
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -20,26 +21,28 @@ async function getAlumni(alumniID){
         if(alumniID===undefined || alumniID==="")
             return {
                 "status": "400",
-                "message": "Unauthorized access"
+                "message": "Bad Request"
             }
         const response = await axiosGetRequest(`/alumni/get/${alumniID}`)
         return response['data']
     }
     catch(error){
-        console.log(error);
+        console.log(error.status);
+        return error.status;
     }
 }
 
 async function listAlumni(query){
     try{
-        const body = {
-            query: query
+        const params = {
+            q: query
         }
-        const response = await axiosPostRequest(`/alumni/get/`, body);
+        const response = await axiosGetRequest(`/alumni/get/`, params);
         return response['data']
     }
     catch(error){
-        console.log(error);
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -52,7 +55,8 @@ async function suggestedAlumni(interest){
         return response['data']
     }
     catch(error){
-        console.log(error);
+        console.log(error.status);
+        return error.status;
     }
 }
 
@@ -61,13 +65,15 @@ async function getMeetingCredential(_id, username){
         const body = {
             id: _id,
             name: username.name,
-            userID: username.userID
+            userID: username.userID,
+            image: username.image
         }
         const response = await axiosPostRequest('/meeting/join/', body)
         return response['data']
     }
     catch(error){
-        console.log(error);
+        console.log(error.status);
+        return error.status;
     }
 }
 

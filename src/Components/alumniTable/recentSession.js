@@ -10,7 +10,6 @@ import {
     Tr,
     Th,
     Td,
-    TableCaption,
     TableContainer,
 } from "@chakra-ui/react";
 import userPhoto from "../../Assets/user-placeholder.png"
@@ -23,16 +22,16 @@ export function ProfileName({name, image}){
                 src={image !== null ? image : userPhoto}
                 width="2em"
                 borderRadius={"full"}
+                objectFit={"cover"}
             />
             <Text>{name}</Text>
         </Flex>
     )
 }
 
-export function TableRecord({data}){
-    console.log(data);
+export function TableRecord({id, data}){
     return (
-        <Tr>
+        <Tr id={id}>
             <Td>
                 <ProfileName name={data.student.name} image={data.student.image}/>
             </Td>
@@ -44,7 +43,6 @@ export function TableRecord({data}){
 }
 
 function Session({ data }) {
-    console.log("--->", data.length);
     return (
         <Box backgroundColor="white" mb={"7vh"}>
             <Flex p="2vh" justify="space-between" mb="1vh">
@@ -66,7 +64,7 @@ function Session({ data }) {
                         {
                             data.map((session) => {
                                 return (
-                                    <TableRecord data={session}/>
+                                    <TableRecord id={session._id} data={session}/>
                                 )
                             })
                         }

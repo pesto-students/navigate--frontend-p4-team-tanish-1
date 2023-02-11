@@ -9,9 +9,11 @@ import PreviousSession from "../../../Components/alumniTable/previousSession.js"
 import Session from "../../../Components/alumniTable/recentSession.js";
 import { axiosPostRequest } from "../../../apiHelper.js";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 export default function Dashboard(){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const toast = useToast();
     const {name, headline, image, _id} = useSelector((state) => {
         return state.user.userData
     });
@@ -28,12 +30,34 @@ export default function Dashboard(){
                 setUpcomingData(response['data']['data']);
                 const today = await axiosPostRequest('/alumni/today/', body);
                 setTodaySession(today['data']['data']);
-                const past = await axiosPostRequest('/alumni/past', body);
-                console.log(past);
+                const past = await axiosPostRequest('/alumni/past', {userName: name, alumniID: _id});
                 setPastSession(past['data']['data'])
             }
             catch(exception){
-                navigate('/error')
+                if(exception.status === 401){
+                    navigate('/signout')
+                    return toast({
+                        title : "Session Timeout",
+                        description: "Session expired please login again",
+                        variant: "top-accent",
+                        status: "info",
+                        duration: 5000,
+                        position: "top",
+                        isClosable: true,
+                    })
+                }
+                else{
+                    navigate('/error')
+                    return toast({
+                        title : "Server Error",
+                        description: "Oops! Something went wrong",
+                        variant: "top-accent",
+                        status: "error",
+                        duration: 5000,
+                        position: "top",
+                        isClosable: true,
+                    })
+                }
             }
         }
         fetchData();
@@ -50,7 +74,7 @@ export default function Dashboard(){
                         <UpcomingSession data={upcomingData} />
                     </Flex>
                     <Session data={todaySession} />
-                    <PreviousSession data={pastSession}/>
+                    {/*<PreviousSession data={pastSession}/>*/}
                 </Box>
             </Box>
         </Flex>

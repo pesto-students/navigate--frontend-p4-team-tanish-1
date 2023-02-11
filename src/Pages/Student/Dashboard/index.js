@@ -1,5 +1,5 @@
 import { Flex, Box, Heading } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import Navbar from "../../../Components/Student/Sidebar/Navbar.js";
 import Sidebar from "../../../Components/Student/Sidebar/sidebar.js";
 import MyCard from "../../../Components/Dashboard/profile-card.js";
@@ -21,6 +21,7 @@ export function ListAlumni({alumniData}){
 }
 
 export default function Dashboard() {
+    const toast = useToast()
     const navigate = useNavigate()
     const {name, headline, interest, _id, image} = useSelector((state) => {
         return state.user.userData
@@ -28,7 +29,6 @@ export default function Dashboard() {
 
     const [upcomingData, setUpcomingData] = useState();
     const [alumniData, setAlumniData] = useState([])
-    console.log(alumniData);
     useEffect(() => {
         const fetchData = async () => {
             const body = {
@@ -36,6 +36,18 @@ export default function Dashboard() {
             }
             try{
                 const response = await axiosPostRequest('/booking/upcoming/student', body);
+                if(response.status === 401){
+                    navigate('/signout')
+                    return toast({
+                        title : "Session Timeout",
+                        description: "Session expired please login again",
+                        variant: "top-accent",
+                        status: "info",
+                        duration: 5000,
+                        position: "top",
+                        isClosable: true,
+                    })
+                }
                 setUpcomingData(response['data']['data']);
             }
             catch(exception){
@@ -48,7 +60,6 @@ export default function Dashboard() {
     useEffect(() => {
         async function suggestedAlumniList(){
             const response = await suggestedAlumni(interest[0])
-            console.log(response);
             setAlumniData(response['data'])
         } suggestedAlumniList();
     }, [interest])

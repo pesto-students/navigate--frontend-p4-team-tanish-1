@@ -15,8 +15,19 @@ import AlumniPricingEdit from "../../../Components/EditProfile/pricingAvailabili
 
 async function updateAlumni(values, userID, helpers) {
     const {navigate, toast, dispatch} = helpers;
-    console.log(values);
     const response = await axiosPostRequest(`/alumni/update/${userID}`, values);
+    if(response.status === 401){
+        navigate('/signout')
+        return toast({
+            title : "Session Timeout",
+            description: "Session expired please login again",
+            variant: "top-accent",
+            status: "info",
+            duration: 5000,
+            position: "top",
+            isClosable: true,
+        })
+    }
     navigate("/alumni/dashboard");
     dispatch(UPDATE_USER_PROFILE({
         userData: values
@@ -32,8 +43,8 @@ async function updateAlumni(values, userID, helpers) {
 }
 
 export default function AlumniEditProfile(){
-    const userData = useSelector((state) => state.user)
-    const {_id, name, image} = userData.userData
+    const userData = useSelector((state) => state.user.userData)
+    const {_id, name, image} = userData
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchAlumniData(_id));
