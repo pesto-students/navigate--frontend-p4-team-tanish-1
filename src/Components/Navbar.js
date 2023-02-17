@@ -35,19 +35,6 @@ function DesktopNavbar() {
         <Box bg="dark" color="txt-primary" w="100%" px="2vw" py="1vh">
             <Flex justify="space-between" align="center">
                 <Image src={logoSQ}></Image>
-                <List>
-                    <Flex w={["46vw", "42vw", "30vw"]} justify="space-evenly">
-                        <ListItem>
-                            <Link>Home</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link>How it Works</Link>
-                        </ListItem>
-                        <ListItem>
-                            <Link>Contact</Link>
-                        </ListItem>
-                    </Flex>
-                </List>
                 <Button as={NavLink} to="/signin">Get Started</Button>
             </Flex>
         </Box>
