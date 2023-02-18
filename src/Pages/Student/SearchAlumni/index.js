@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { NoSearchResult } from "../../../Components/NoData.js";
 import { ListAlumni } from "../Dashboard/index.js";
 import { useNavigate } from "react-router-dom";
+import debounce from "lodash.debounce"
 
 export default function SearchAlumni(){
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function SearchAlumni(){
                         placeholder={"Search Alumni"}
                         type={"text"}
                         variant="form"
-                        onChange={e => setQuery(e.target.value)}
+                        onChange={debounce((e => setQuery(e.target.value)), 500)}
                     />
                 </Flex>
                 {alumniData.length !== 0 ?

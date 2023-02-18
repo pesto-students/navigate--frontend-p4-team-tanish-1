@@ -74,7 +74,7 @@ export default function Dashboard(){
                         <UpcomingSession data={upcomingData} />
                     </Flex>
                     <Session data={todaySession} />
-                    {/*<PreviousSession data={pastSession}/>*/}
+                    <PreviousSession data={pastSession}/>
                 </Box>
             </Box>
         </Flex>
