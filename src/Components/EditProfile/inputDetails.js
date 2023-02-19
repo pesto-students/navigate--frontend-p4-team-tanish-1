@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosPostRequest } from "../../apiHelper";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
-
-const validFileTypes = ['image/jpg', 'image/jpeg', 'image/png']
+import { interests } from "../../CONSTANTS";
 
 function CustomInput({ register, id, placeholder, val, type = "text" }) {
     return (
@@ -201,12 +200,10 @@ export default function InputForm({ register, data }) {
                     {...register("interest")}
                     defaultValue={data.interest ? data.interest[0] : undefined}
                 >
-                    <option value="Artificial Intelligence">Artificial intelligence (AI)</option>
-                    <option value="Game Developer">Game Developer</option>
-                    <option value="Computer Network">Computer Network</option>
-                    <option value="Graphics Design">Graphics Design</option>
-                    <option value="Information Security">Information Security</option>
-                    <option value="Data Science">Data Science</option>
+                    {
+                        interests.map((i) => <option value={i}>{i}</option>
+                        )
+                    }
                 </Select>
             </Flex>
         </>
