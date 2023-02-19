@@ -37,7 +37,7 @@ function alumniCard({data}) {
                             {data.name}
                         </Text>
                         <Text fontSize="0.9em">
-                            {data.bio}
+                            {data.headline}
                         </Text>
                     </Stack>
                 </Flex>
