@@ -20,6 +20,15 @@ export default function Dashboard(){
     const [upcomingData, setUpcomingData] = useState();
     const [todaySession, setTodaySession] = useState([]);
     const [pastSession, setPastSession] = useState([]);
+
+    const [asc, setAsc] = useState(false)
+    let sortRecord = () => {
+        pastSession.sort((a, b) => asc ? (a.at - b.at) : (b.at - a.at));
+        setPastSession(pastSession)
+        console.log(pastSession)
+        setAsc(!asc)
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             const body = {
@@ -74,7 +83,7 @@ export default function Dashboard(){
                         <UpcomingSession data={upcomingData} />
                     </Flex>
                     <Session data={todaySession} />
-                    {/*<PreviousSession data={pastSession}/>*/}
+                    <PreviousSession data={pastSession} sortFunc={sortRecord}/>
                 </Box>
             </Box>
         </Flex>
